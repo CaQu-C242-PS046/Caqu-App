@@ -2,16 +2,17 @@ package com.budi.caquapplicaton.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.budi.caquapplication.R
 import com.budi.caquapplication.databinding.FragmentHomeBinding
 import com.budi.caquapplicaton.ui.quiz.QuizActivity
 import com.budi.caquapplicaton.utils.SharedPreferencesHelper
+import com.google.android.material.appbar.AppBarLayout
 
 class HomeFragment : Fragment() {
 
@@ -25,29 +26,39 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        // Inflate layout and initialize binding
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
+        // Hide action bar
         (activity as AppCompatActivity).supportActionBar?.hide()
 
-
+        // Initialize SharedPreferencesHelper
         sharedPreferencesHelper = SharedPreferencesHelper(requireContext())
 
-
+        // Get username and set Welcome Text
         val username = sharedPreferencesHelper.getUsername() ?: "User"
+        binding.welcomeText.text = getString(R.string.halo, username)
 
-
-        binding.welcomeText.text = "Welcome, $username!"
-
-
+        // Observe ViewModel if needed
+        val homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         homeViewModel.text.observe(viewLifecycleOwner) { welcomeText ->
             binding.welcomeText.text = welcomeText
         }
 
+        // Add listener to AppBarLayout
+        binding.appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            val totalScrollRange = appBarLayout.totalScrollRange
 
-        binding.subtitleText.text = "“The best time to start was yesterday. The next best time is now.”"
+            if (totalScrollRange + verticalOffset == 0) {
+                // AppBar collapsed: Hide the "Ayo kejar mimpimu!" text
+                binding.toolbarMessage.visibility = View.GONE
+            } else {
+                // AppBar expanded: Show the "Ayo kejar mimpimu!" text
+                binding.toolbarMessage.visibility = View.VISIBLE
+            }
+        })
 
-
+        // Set click listener for recommend button
         binding.recommendButton.setOnClickListener {
             val intent = Intent(requireContext(), QuizActivity::class.java)
             startActivity(intent)

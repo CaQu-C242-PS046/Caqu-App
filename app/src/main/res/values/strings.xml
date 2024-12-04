@@ -23,10 +23,10 @@
     <string name="or_sign_up_using_other_method">Or Sign Up using other method</string>
     <string name="google_sign_up">Google Sign-Up</string>
     <string name="already_have_an_account_sign_in_here">Already have an account? Sign In here</string>
-    <string name="welcome_user">Welcome, User!</string>
-    <string name="cari_rekomendasi_mu">Cari Rekomendasi Mu!</string>
-    <string name="history">History</string>
-    <string name="rekomendasi">Rekomendasi</string>
+    <string name="welcome_user">Halo, User!</string>
+    <string name="cari_rekomendasi_mu">Cari Karir Mu!</string>
+    <string name="history">HISTORY</string>
+    <string name="rekomendasi">REKOMENDASI</string>
     <string name="event_picture" />
     <string name="event_title" />
     <string name="stats">Stats</string>
@@ -90,4 +90,9 @@
 
         8. Governing Law\
         These Terms and Conditions are governed and interpreted under the laws of [your country]. Any disputes will be resolved through mediation or courts with jurisdiction.</string>
+    <string name="subtitle_title">CAPAI CITA CITA!</string>
+    <string name="this_is_the_content_of_the_subtitle_section">Temukan minat kalian, \nterus berusaha untuk \nmencapai masa depan cerah impian kalian!</string>
+    <string name="banner">banner\n</string>
+    <string name="halo">Halo, %1$s! 👋</string>
+    <string name="ayo_kejar_mimpimu">Ayo kejar mimpimu!</string>
 </resources>
