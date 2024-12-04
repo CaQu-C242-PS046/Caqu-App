@@ -1,0 +1,202 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    tools:context="com.budi.caquapplicaton.ui.profile.ProfileFragment">
+
+    <!-- Profile Section -->
+    <FrameLayout
+        android:id="@+id/profile_picture_container"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Circular Profile Image -->
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ivProfilePicture"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/pfp"
+            android:contentDescription="Profile Picture" />
+
+        <!-- Edit Icon -->
+        <ImageView
+            android:id="@+id/ivEditProfile"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="4dp"
+            android:background="@drawable/bg_circle_blue"
+            android:padding="6dp"
+            android:src="@drawable/baseline_edit_24"
+            app:tint="#9E9E9E" />
+    </FrameLayout>
+
+    <!-- Profile Name -->
+    <TextView
+        android:id="@+id/tvProfileName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Username"
+        android:fontFamily="@font/poppinsmedium"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/profile_picture_container"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Stats Section Header -->
+    <TextView
+        android:id="@+id/tvStatsHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#EEEEEE"
+        android:padding="12dp"
+        android:fontFamily="@font/poppinsmedium"
+        android:text="@string/carerposibillity"
+        android:textColor="#9E9E9E"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/tvProfileName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Stats Section -->
+    <LinearLayout
+        android:id="@+id/statsSection"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@id/tvStatsHeader"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/ivStatsIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/baseline_person_24"
+            app:tint="#9E9E9E" />
+
+        <TextView
+            android:id="@+id/tvStats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Awaiting recommendations..."
+            android:textColor="#757575"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- General Settings Section Header -->
+    <TextView
+        android:id="@+id/tvGeneralSettingsHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#EEEEEE"
+        android:padding="12dp"
+        android:text="@string/general_settings"
+        android:fontFamily="@font/poppinsmedium"
+        android:textColor="#9E9E9E"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/statsSection"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Change Password -->
+    <LinearLayout
+        android:id="@+id/changePasswordSection"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@id/tvGeneralSettingsHeader"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/ivChangePasswordIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/baseline_lock_24"
+            app:tint="#9E9E9E" />
+
+        <TextView
+            android:id="@+id/tvChangePassword"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:text="@string/change_password"
+            android:textColor="#000000"
+            android:fontFamily="@font/poppinsmedium"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/baseline_arrow_forward_ios_24"
+            app:tint="#9E9E9E" />
+    </LinearLayout>
+
+    <!-- Terms and Conditions -->
+    <LinearLayout
+        android:id="@+id/termsSection"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@id/changePasswordSection"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/ivTermsIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/baseline_newspaper_24"
+            app:tint="#9E9E9E" />
+
+        <TextView
+            android:id="@+id/tvTerms"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:text="@string/terms_and_conditions"
+            android:textColor="#000000"
+            android:fontFamily="@font/poppinsmedium"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/baseline_arrow_forward_ios_24"
+            app:tint="#9E9E9E" />
+    </LinearLayout>
+
+    <!-- Log Out -->
+    <Button
+        android:id="@+id/btnLogOut"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:backgroundTint="#FF5722"
+        android:text="Log Out"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/termsSection"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

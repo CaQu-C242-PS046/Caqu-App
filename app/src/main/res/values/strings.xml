@@ -1,0 +1,93 @@
+<resources>
+    <string name="app_name">Career Quest</string>
+    <string name="title_home">Home</string>
+    <string name="title_career">Career</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_softskill">Soft Skill</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="get_started_using_our_apps">Get Started Using our Apps</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="don_t_have_an_account_sign_up_here">Don\'t have an account? Sign Up here</string>
+    <string name="google_sign_in">Google Sign-In</string>
+    <string name="or_login_using_other_method">Or Login using other method</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="show_hide_password">Show/Hide Password</string>
+    <string name="password">PASSWORD</string>
+    <string name="username">USERNAME</string>
+    <string name="sign_in_to_continue">SIGN IN TO CONTINUE</string>
+    <string name="create_an_account">Create an Account</string>
+    <string name="email">EMAIL</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="or_sign_up_using_other_method">Or Sign Up using other method</string>
+    <string name="google_sign_up">Google Sign-Up</string>
+    <string name="already_have_an_account_sign_in_here">Already have an account? Sign In here</string>
+    <string name="welcome_user">Welcome, User!</string>
+    <string name="cari_rekomendasi_mu">Cari Rekomendasi Mu!</string>
+    <string name="history">History</string>
+    <string name="rekomendasi">Rekomendasi</string>
+    <string name="event_picture" />
+    <string name="event_title" />
+    <string name="stats">Stats</string>
+    <string name="terms_and_conditions">Terms and Conditions</string>
+    <string name="change_password">Change Password</string>
+    <string name="general_settings">General Settings</string>
+    <string name="carerposibillity">Career Possibility</string>
+    <string name="article_detail">detail artikel</string>
+    <string name="article_title">judul artikel</string>
+    <string name="author">author</string>
+    <string name="date">date</string>
+    <string name="content_description_media" />
+    <string name="description" />
+    <string name="confirm_password">Confirm Password</string>
+    <string name="send_requests">Send Requests</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_change">Confirm Change</string>
+    <string name="enter_email">Enter Your Email</string>
+    <string name="forgot_password_title">Forgot Password</string>
+    <string name="reset_password_title">Reset Password Request</string>
+    <string name="old_password_fill">Please Input Your Old Password</string>
+    <string name="email_requests_fill">Please Input Your Registered Email</string>
+    <string name="email_empty_warning">Please enter your email address.</string>
+    <string name="email_sent_success">Password reset email sent successfully!</string>
+    <string name="change_password_fill">Please Input Minimum 8 Characters </string>
+    <string name="no_data_available">Tidak ada Hasil</string>
+    <string name="terms_and_conditions_fill">Terms and Conditions\n\
+        Welcome to CaQu! \n\
+        By using our application, you agree to the following Terms and Conditions. If you do not agree with these terms, please stop using the service. \n\
+        1. Introduction\
+        1.1. CaQu is a health application aimed at bridging health gaps for vulnerable communities by providing accessible health information, personalized health monitoring, and connections to local health services.
+        1.2. This application does not replace professional medical advice or diagnosis. For medical needs, please consult a healthcare professional. \n\
+
+        2. App Usage\
+        2.1. CaQu is intended for individuals aged 18 and above, or minors with parental/guardian consent.
+        2.2. You are prohibited from using the app for unlawful purposes, defamation, or violating the rights of others.
+        2.3. All data and information you input into the app are your sole responsibility.\n\
+
+        3. User Account\
+        3.1. You must create an account to access certain features of CaQu.
+        3.2. You are responsible for maintaining the confidentiality of your login credentials. We are not liable for unauthorized use of your account.
+        3.3. If you suspect unauthorized activity on your account, report it to us immediately.\n\
+
+        4. Use of Personal Data\
+        4.1. We collect and process your personal data in accordance with our Privacy Policy.
+        4.2. Your data is used to enhance your experience, including health recommendations, reminders, and personal health analysis.\n\
+
+        5. Limitation of Liability\
+        5.1. CaQu provides services on an "as is" basis without warranties of any kind.
+        5.2. We are not liable for any direct, indirect, or consequential damages resulting from the use of this app.
+        5.3. Information provided by chatbots or recommendation features does not replace consultations with healthcare professionals.\n\
+
+        6. Service Modifications\
+        6.1. We reserve the right to modify, add, or remove features in the app at any time without prior notice.
+        6.2. Changes to these Terms and Conditions will be communicated through the app or via email.\n\
+
+        7. Intellectual Property Rights\
+        7.1. All copyrights, trademarks, and intellectual property rights related to this application are owned by CaQu.
+        7.2. Duplication, modification, or distribution of app content without our written permission is prohibited.\n\
+
+        8. Governing Law\
+        These Terms and Conditions are governed and interpreted under the laws of [your country]. Any disputes will be resolved through mediation or courts with jurisdiction.</string>
+</resources>
