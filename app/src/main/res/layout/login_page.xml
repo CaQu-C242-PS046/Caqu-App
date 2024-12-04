@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash"
+    android:background="@drawable/background"
     tools:context="com.budi.caquapplicaton.regist.LoginPage">
 
     <LinearLayout
@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:fontFamily="@font/poppinsbold"
+            android:fontFamily="@font/montserratsemibold"
             android:gravity="center"
             android:text="@string/login"
             android:textColor="#42A5F5"
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="4dp"
-            android:fontFamily="@font/poppinsmedium"
+            android:fontFamily="@font/montserratmedium"
             android:gravity="center"
             android:text="@string/sign_in_to_continue"
             android:textColor="#A0A0A0"
@@ -90,6 +90,7 @@
             android:layout_gravity="end"
             android:layout_marginTop="4dp"
             android:text="@string/forgot_password"
+            android:fontFamily="@font/montserratmedium"
             android:textColor="#42A5F5"
             android:textSize="12sp" />
 
@@ -102,6 +103,7 @@
             android:text="@string/login"
             android:textColor="@android:color/white"
             android:textSize="16sp"
+            android:fontFamily="@font/montserratmedium"
             android:textStyle="bold" />
 
         <TextView
@@ -112,6 +114,7 @@
             android:gravity="center"
             android:text="@string/or_login_using_other_method"
             android:textColor="#A0A0A0"
+            android:fontFamily="@font/light"
             android:textSize="12sp" />
 
         <ImageView
@@ -129,6 +132,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/light"
             android:gravity="center"
             android:text="@string/don_t_have_an_account_sign_up_here"
             android:textColor="#A0A0A0"

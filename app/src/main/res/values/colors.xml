@@ -4,7 +4,7 @@
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
-    <color name="my_prime">#37AFE1</color>
+    <color name="my_prime">#89DCFF</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
@@ -13,4 +13,5 @@
     <color name="third_prime">#4CC9FE</color>
     <color name="ic_launcher_background">#ffffff</color>
     <color name="grey">#B3C8CF</color>
+    <color name="isback">#F4F6FF</color>
 </resources>

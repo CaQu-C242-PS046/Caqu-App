@@ -1,0 +1,12 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Bagian tengah -->
+    <solid android:color="@color/white" />
+
+    <!-- Border -->
+    <stroke
+        android:width="4dp"
+        android:color="@color/my_prime" />
+
+    <!-- Radius sudut -->
+    <corners android:radius="16dp" />
+</shape>
