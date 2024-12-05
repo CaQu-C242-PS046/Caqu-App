@@ -66,6 +66,7 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.annotation)
+    implementation(libs.play.services.auth)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
