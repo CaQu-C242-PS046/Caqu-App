@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="-3dp"
+        android:layout_marginBottom="0dp"
         android:background="@drawable/rounded_card_background"
         android:backgroundTint="@color/white"
         android:elevation="4dp"
@@ -89,8 +89,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginTop="4dp"
-            android:fontFamily="@font/montserratmedium"
             android:text="@string/forgot_password"
+            android:fontFamily="@font/montserratmedium"
             android:textColor="#42A5F5"
             android:textSize="12sp" />
 
@@ -100,10 +100,10 @@
             android:layout_height="48dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/button_background"
-            android:fontFamily="@font/montserratmedium"
             android:text="@string/login"
             android:textColor="@android:color/white"
             android:textSize="16sp"
+            android:fontFamily="@font/montserratmedium"
             android:textStyle="bold" />
 
         <TextView
@@ -111,10 +111,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
-            android:fontFamily="@font/regular"
             android:gravity="center"
             android:text="@string/or_login_using_other_method"
             android:textColor="#A0A0A0"
+            android:fontFamily="@font/light"
             android:textSize="12sp" />
 
         <ImageView
@@ -132,7 +132,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
-            android:fontFamily="@font/regular"
+            android:fontFamily="@font/light"
             android:gravity="center"
             android:text="@string/don_t_have_an_account_sign_up_here"
             android:textColor="#A0A0A0"
@@ -140,4 +140,4 @@
 
     </LinearLayout>
 
-</RelativeLayout>
+    </RelativeLayout>

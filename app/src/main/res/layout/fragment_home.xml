@@ -139,7 +139,7 @@
                         android:text="@string/this_is_the_content_of_the_subtitle_section"
                         android:textColor="#6A6A6A"
                         android:textSize="14sp"
-                        android:fontFamily="@font/regular" />
+                        android:fontFamily="@font/montserratmedium" />
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -150,7 +150,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="#4280EF"
                 android:text="@string/cari_rekomendasi_mu"
-                android:fontFamily="@font/montserratsemibold"
+                android:fontFamily="@font/montserratmedium"
                 android:textColor="#FFFFFF"
                 android:textSize="30sp"
                 app:layout_constraintTop_toBottomOf="@id/subtitle_section"

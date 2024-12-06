@@ -17,6 +17,7 @@
             tools:text="Question 7/20"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:fontFamily="@font/montserratmedium"
             android:layout_centerVertical="true"
             android:id="@+id/question_indicator_textview" />
 
@@ -57,7 +58,8 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:padding="8dp"
-                android:background="@drawable/rounded_card_background"
+                android:fontFamily="@font/montserratsemibold"
+                android:background="@drawable/rounded_card_allround"
                 android:backgroundTint="@color/third_prime"
                 android:textColor="@color/white"
                 android:gravity="center"

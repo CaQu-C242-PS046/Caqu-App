@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Terms &amp; Condition"
-            android:fontFamily="@font/poppinsmedium"
+            android:fontFamily="@font/montserratmedium"
             android:gravity="center"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/terms_and_conditions_fill"
                 android:textSize="14sp"
-                android:fontFamily="@font/poppinsmedium"
+                android:fontFamily="@font/montserratmedium"
                 android:lineSpacingExtra="4dp"
                 android:textColor="#FFFFFF" />
 
