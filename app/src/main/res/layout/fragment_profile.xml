@@ -192,9 +192,9 @@
     <!-- Log Out -->
     <Button
         android:id="@+id/btnLogOut"
-        android:layout_width="0dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_margin="32dp"
+        android:layout_marginTop="90dp"
         android:backgroundTint="#FF5722"
         android:text="Log Out"
         android:textColor="#FFFFFF"
