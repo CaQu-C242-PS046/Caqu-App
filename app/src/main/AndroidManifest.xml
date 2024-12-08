@@ -45,6 +45,9 @@
                 <data android:scheme="myapp" android:host="login" />
             </intent-filter>
         </activity>
+        <activity android:name="com.budi.caquapplicaton.ui.softskill.SoftSkillDetailActivity"
+            android:label="Soft Skill Detail"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name="com.budi.caquapplicaton.MainActivity"
             android:exported="true" />

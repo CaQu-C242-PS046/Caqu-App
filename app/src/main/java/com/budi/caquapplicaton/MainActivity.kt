@@ -40,4 +40,13 @@ class MainActivity : AppCompatActivity() {
             Log.d("MainActivity", "Token ditemukan: $accessToken")
         }
     }
+
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount > 0) {
+            supportFragmentManager.popBackStack()
+        } else {
+            super.onBackPressed()
+        }
+    }
+
 }

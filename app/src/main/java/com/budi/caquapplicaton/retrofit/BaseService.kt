@@ -17,7 +17,7 @@ interface BaseService {
     // Mendapatkan detail soft skill berdasarkan nama
     @GET("softSkills/{name}")
     suspend fun getSoftSkillDetail(
-        @Path("name") name: String,
+        @Path("name", encoded = true) name: String, // Parameter nama soft skill
         @Header("Authorization") token: String // Menambahkan parameter token
     ): Response<SoftSkillDetail>
 

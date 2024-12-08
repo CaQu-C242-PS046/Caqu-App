@@ -1,15 +1,16 @@
 package com.budi.caquapplicaton.ui.softskill
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.budi.caquapplication.R
 import com.budi.caquapplication.databinding.FragmentSoftskillBinding
 import com.budi.caquapplication.utils.SharedPreferencesHelper
 import kotlinx.coroutines.launch
@@ -53,7 +54,14 @@ class SoftskillFragment : Fragment() {
 
         adapter.setOnItemClickListener { name ->
             lifecycleScope.launch {
+                // Menunggu data detail soft skill
                 viewModel.fetchSoftSkillDetail(name)
+                viewModel.softSkillDetail.observe(viewLifecycleOwner) { detail ->
+                    val intent = Intent(requireContext(), SoftSkillDetailActivity::class.java)
+                    // Kirimkan objek SoftSkillDetail ke Activity
+                    intent.putExtra("softSkillDetail", detail)
+                    startActivity(intent) // Menavigasi ke activity
+                }
             }
         }
     }
@@ -63,7 +71,6 @@ class SoftskillFragment : Fragment() {
             adapter.updateData(softSkills)
             binding.progressBar.visibility = View.GONE
         }
-
 
         viewModel.errorMessage.observe(viewLifecycleOwner) { message ->
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()

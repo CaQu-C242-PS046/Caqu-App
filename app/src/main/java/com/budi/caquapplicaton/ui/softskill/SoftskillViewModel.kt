@@ -1,5 +1,6 @@
 package com.budi.caquapplicaton.ui.softskill
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -55,8 +56,11 @@ class SoftskillViewModel(
         }
 
         try {
+            // Encode the name parameter before making the API call
+            val encodedName = Uri.encode(name)
+
             val response = withContext(Dispatchers.IO) {
-                api.getSoftSkillDetail(name, "Bearer $token")
+                api.getSoftSkillDetail(encodedName, "Bearer $token")
             }
             if (response.isSuccessful) {
                 response.body()?.let {
@@ -69,4 +73,5 @@ class SoftskillViewModel(
             _errorMessage.postValue("Error: ${e.message}")
         }
     }
+
 }

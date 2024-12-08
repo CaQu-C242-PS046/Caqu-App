@@ -1,14 +1,35 @@
 package com.budi.caquapplicaton.retrofit
+import kotlinx.parcelize.Parcelize
+import android.os.Parcelable
 
 data class ResponseSoftSkills(
     val data: List<String>
 )
 
+@Parcelize
 data class SoftSkillDetail(
     val nama_ss: String,
-    val artikel: List<String>,
-    val video: Video
-)
+    val video: VideoDetail
+) : Parcelable
+
+@Parcelize
+data class VideoDetail(
+    val videoLink: String,
+    val title: String,
+    val description: String,
+    val thumbnails: Thumbnails
+) : Parcelable
+
+@Parcelize
+data class Thumbnails(
+    val high: ThumbnailDetail
+) : Parcelable
+
+@Parcelize
+data class ThumbnailDetail(
+    val url: String
+) : Parcelable
+
 
 data class QuestionResponse(
     val question: String,
