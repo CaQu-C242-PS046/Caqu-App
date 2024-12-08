@@ -10,7 +10,6 @@ object BaseClient {
 
     private const val BASE_URL = "https://caqu-app-442406.et.r.appspot.com/"
 
-    // Function to create Retrofit instance
     private fun getClient(): Retrofit {
         val gson = GsonBuilder()
             .setLenient()
@@ -31,7 +30,6 @@ object BaseClient {
             .build()
     }
 
-    // Function to provide SoftSkillsApi instance
     fun getSoftSkillsApi(): BaseService {
         return getClient().create(BaseService::class.java)
     }

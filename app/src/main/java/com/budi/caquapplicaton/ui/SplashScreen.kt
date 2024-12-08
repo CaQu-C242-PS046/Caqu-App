@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import androidx.appcompat.app.AppCompatActivity
 import com.budi.caquapplication.R
+import com.budi.caquapplication.utils.SharedPreferencesHelper
 import com.budi.caquapplicaton.MainActivity
 import com.budi.caquapplicaton.regist.GetStarted
-import com.budi.caquapplicaton.utils.SharedPreferencesHelper
 
 class SplashScreen : AppCompatActivity() {
 

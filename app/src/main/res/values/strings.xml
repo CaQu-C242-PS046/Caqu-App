@@ -96,4 +96,6 @@
     <string name="halo_user">Halo, User!</string>
     <string name="halo">Halo, %s!</string>
     <string name="banner">banner\n</string>
+    <string name="soft_skills">Soft Skills</string>
+    <string name="toolbar_background" />
 </resources>

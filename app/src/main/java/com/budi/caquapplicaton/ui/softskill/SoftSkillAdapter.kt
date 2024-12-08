@@ -8,27 +8,39 @@ import androidx.recyclerview.widget.RecyclerView
 import com.budi.caquapplication.R
 
 class SoftSkillAdapter(
-    private var softSkillList: List<String>
-) : RecyclerView.Adapter<SoftSkillAdapter.SoftSkillViewHolder>() {
+    private var softSkills: List<String>
+) : RecyclerView.Adapter<SoftSkillAdapter.ViewHolder>() {
 
-    inner class SoftSkillViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val textView: TextView = itemView.findViewById(R.id.textViewSoftSkill)
+    private var onItemClickListener: ((String) -> Unit)? = null
+
+    fun setOnItemClickListener(listener: (String) -> Unit) {
+        onItemClickListener = listener
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SoftSkillViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_soft_skill, parent, false)
-        return SoftSkillViewHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: SoftSkillViewHolder, position: Int) {
-        holder.textView.text = softSkillList[position]
-    }
-
-    override fun getItemCount(): Int = softSkillList.size
-
-    fun updateData(newSoftSkillList: List<String>) {
-        softSkillList = newSoftSkillList
+    fun updateData(newData: List<String>) {
+        softSkills = newData
         notifyDataSetChanged()
     }
+
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val name: TextView = view.findViewById(R.id.softSkillName)
+
+        init {
+            view.setOnClickListener {
+                onItemClickListener?.invoke(softSkills[adapterPosition])
+            }
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_soft_skill, parent, false)
+        return ViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.name.text = softSkills[position]
+    }
+
+    override fun getItemCount(): Int = softSkills.size
 }

@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.budi.caquapplication.databinding.FragmentSoftskillBinding
+import com.budi.caquapplication.utils.SharedPreferencesHelper
 import kotlinx.coroutines.launch
 
 class SoftskillFragment : Fragment() {
@@ -17,43 +19,56 @@ class SoftskillFragment : Fragment() {
     private var _binding: FragmentSoftskillBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: SoftSkillAdapter
+    private lateinit var viewModel: SoftskillViewModel
+    private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val softskillViewModel =
-            ViewModelProvider(this).get(SoftskillViewModel::class.java)
-
         _binding = FragmentSoftskillBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        sharedPreferencesHelper = SharedPreferencesHelper(requireContext())
 
-        // Setup RecyclerView
-        binding.rvEvent.layoutManager = LinearLayoutManager(requireContext())
-        adapter = SoftSkillAdapter(emptyList())
-        binding.rvEvent.adapter = adapter
+        viewModel = ViewModelProvider(
+            this,
+            SoftskillViewModelFactory(sharedPreferencesHelper)
+        )[SoftskillViewModel::class.java]
 
-        // Observe LiveData
-        softskillViewModel.softSkills.observe(viewLifecycleOwner) { softSkills ->
-            adapter = SoftSkillAdapter(softSkills)
-            binding.rvEvent.adapter = adapter
-            binding.rvEvent.visibility = View.VISIBLE
-            binding.progressBar.visibility = View.GONE
-        }
+        setupRecyclerView()
+        observeViewModel()
 
-        softskillViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
-            Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
-            binding.progressBar.visibility = View.GONE
-        }
-
-        // Fetch Data
         binding.progressBar.visibility = View.VISIBLE
         lifecycleScope.launch {
-            softskillViewModel.fetchSoftSkills()
+            viewModel.fetchSoftSkills()
         }
 
-        return root
+        return binding.root
+    }
+
+    private fun setupRecyclerView() {
+        binding.rvSoftSkills.layoutManager = LinearLayoutManager(requireContext())
+        adapter = SoftSkillAdapter(emptyList())
+        binding.rvSoftSkills.adapter = adapter
+
+        adapter.setOnItemClickListener { name ->
+            lifecycleScope.launch {
+                viewModel.fetchSoftSkillDetail(name)
+            }
+        }
+    }
+
+    private fun observeViewModel() {
+        viewModel.softSkills.observe(viewLifecycleOwner) { softSkills ->
+            adapter.updateData(softSkills)
+            binding.progressBar.visibility = View.GONE
+        }
+
+
+        viewModel.errorMessage.observe(viewLifecycleOwner) { message ->
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+            binding.progressBar.visibility = View.GONE
+        }
     }
 
     override fun onDestroyView() {
