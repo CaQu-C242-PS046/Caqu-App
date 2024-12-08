@@ -7,11 +7,11 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textViewSoftSkill"
+        android:id="@+id/softSkillName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/button_background"
+        android:background="@drawable/softskill_background"
         android:fontFamily="@font/poppinsmedium"
         android:gravity="center"
         android:padding="10dp"
@@ -24,24 +24,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" />
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </ScrollView>
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#36AADA"
-        android:text="TextView" />
-
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/baseline_arrow_forward_ios_24" />
 
 </LinearLayout>

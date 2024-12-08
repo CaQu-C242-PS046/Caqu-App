@@ -1,9 +1,10 @@
-package com.budi.caquapplicaton.utils
+package com.budi.caquapplication.utils
 
 import android.content.Context
 import android.content.SharedPreferences
 
 class SharedPreferencesHelper(context: Context) {
+
     private val sharedPreferences: SharedPreferences =
         context.getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
 
@@ -12,40 +13,75 @@ class SharedPreferencesHelper(context: Context) {
         private const val REFRESH_TOKEN = "refreshToken"
         private const val IS_LOGGED_IN = "isLoggedIn"
         private const val USERNAME = "username"
+        private const val LAST_LOGIN_TIME = "lastLoginTime" // Contoh tambahan untuk waktu login terakhir
     }
 
-    // Simpan token dan status login
+    // Simpan token akses dan token refresh
     fun saveTokens(accessToken: String, refreshToken: String) {
-        val editor = sharedPreferences.edit()
-        editor.putString(ACCESS_TOKEN, accessToken)
-        editor.putString(REFRESH_TOKEN, refreshToken)
-        editor.putBoolean(IS_LOGGED_IN, true)
-        editor.apply()
+        sharedPreferences.edit().apply {
+            putString(ACCESS_TOKEN, accessToken)
+            putString(REFRESH_TOKEN, refreshToken)
+            putBoolean(IS_LOGGED_IN, true)
+            apply()
+        }
     }
 
-    // Simpan username
+    // Simpan nama pengguna
     fun saveUsername(username: String) {
-        val editor = sharedPreferences.edit()
-        editor.putString(USERNAME, username)
-        editor.apply()
+        sharedPreferences.edit().apply {
+            putString(USERNAME, username)
+            apply()
+        }
+    }
+
+    // Simpan waktu login terakhir (opsional)
+    fun saveLastLoginTime(timestamp: Long) {
+        sharedPreferences.edit().apply {
+            putLong(LAST_LOGIN_TIME, timestamp)
+            apply()
+        }
     }
 
     // Ambil token akses
-    fun getAccessToken(): String? = sharedPreferences.getString(ACCESS_TOKEN, null)
+    fun getAccessToken(): String? {
+        return sharedPreferences.getString(ACCESS_TOKEN, null)
+    }
 
     // Ambil token refresh
-    fun getRefreshToken(): String? = sharedPreferences.getString(REFRESH_TOKEN, null)
+    fun getRefreshToken(): String? {
+        return sharedPreferences.getString(REFRESH_TOKEN, null)
+    }
 
-    // Ambil username
-    fun getUsername(): String? = sharedPreferences.getString(USERNAME, null)
+    // Ambil nama pengguna
+    fun getUsername(): String? {
+        return sharedPreferences.getString(USERNAME, null)
+    }
 
-    // Periksa status login
-    fun isLoggedIn(): Boolean = sharedPreferences.getBoolean(IS_LOGGED_IN, false)
+    // Ambil waktu login terakhir
+    fun getLastLoginTime(): Long {
+        return sharedPreferences.getLong(LAST_LOGIN_TIME, 0L)
+    }
 
-    // Hapus data pengguna
+    // Periksa apakah pengguna telah login
+    fun isLoggedIn(): Boolean {
+        return sharedPreferences.getBoolean(IS_LOGGED_IN, false)
+    }
+
+    // Hapus semua data pengguna
     fun clearUserData() {
-        val editor = sharedPreferences.edit()
-        editor.clear()
-        editor.apply()
+        sharedPreferences.edit().apply {
+            clear()
+            apply()
+        }
+    }
+
+    // Logout pengguna dengan menghapus status login dan token
+    fun logout() {
+        sharedPreferences.edit().apply {
+            remove(ACCESS_TOKEN)
+            remove(REFRESH_TOKEN)
+            putBoolean(IS_LOGGED_IN, false)
+            apply()
+        }
     }
 }

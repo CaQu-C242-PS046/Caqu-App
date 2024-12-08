@@ -4,6 +4,12 @@ data class ResponseSoftSkills(
     val data: List<String>
 )
 
+data class SoftSkillDetail(
+    val nama_ss: String,
+    val artikel: List<String>,
+    val video: Video
+)
+
 data class QuestionResponse(
     val question: String,
     val questionNumber: Int
