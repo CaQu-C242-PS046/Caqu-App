@@ -25,7 +25,6 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         // Inflate layout and initialize binding
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
@@ -35,33 +34,32 @@ class HomeFragment : Fragment() {
         // Initialize SharedPreferencesHelper
         sharedPreferencesHelper = SharedPreferencesHelper(requireContext())
 
-        // Get username and set Welcome Text
+        // Set welcome text with username
         val username = sharedPreferencesHelper.getUsername() ?: "User"
         binding.welcomeText.text = getString(R.string.halo, username)
 
-        // Observe ViewModel if needed
+        // Observe ViewModel (optional)
         val homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         homeViewModel.text.observe(viewLifecycleOwner) { welcomeText ->
             binding.welcomeText.text = welcomeText
         }
 
-        // Add listener to AppBarLayout
+        // Set AppBarLayout collapse logic
         binding.appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
             val totalScrollRange = appBarLayout.totalScrollRange
-
             if (totalScrollRange + verticalOffset == 0) {
-                // AppBar collapsed: Hide the "Ayo kejar mimpimu!" text
+                // Collapsed
                 binding.toolbarMessage.visibility = View.GONE
             } else {
-                // AppBar expanded: Show the "Ayo kejar mimpimu!" text
+                // Expanded
                 binding.toolbarMessage.visibility = View.VISIBLE
             }
         })
 
-        // Set click listener for recommend button
+        // Set click listener for recommendation button
         binding.recommendButton.setOnClickListener {
-            val intent = Intent(requireContext(), QuizActivity::class.java)
-            startActivity(intent)
+            // Example action: Navigate to another screen
+            startActivity(Intent(requireContext(), QuizActivity::class.java))
         }
 
         return binding.root

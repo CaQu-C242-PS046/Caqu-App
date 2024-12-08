@@ -1,9 +1,9 @@
 package com.budi.caquapplicaton.regist
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.budi.caquapplication.R
@@ -36,6 +36,9 @@ class LoginPage : AppCompatActivity() {
         val retrofit = ApiClient.getClient()
         apiService = retrofit.create(AuthService::class.java)
 
+        // Tangani Deep Link
+        handleDeepLink()
+
         binding.loginButton.setOnClickListener {
             val username = binding.usernameEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
@@ -45,7 +48,6 @@ class LoginPage : AppCompatActivity() {
             }
         }
 
-        // Fitur show/hide password
         binding.showHidePasswordIcon.setOnClickListener {
             togglePasswordVisibility()
         }
@@ -137,6 +139,15 @@ class LoginPage : AppCompatActivity() {
         }
         binding.passwordEditText.setSelection(binding.passwordEditText.text.length) // Retain cursor position
     }
+
+    private fun handleDeepLink() {
+        val data: Uri? = intent?.data
+        if (data != null) {
+            val deepLinkMessage = data.getQueryParameter("message")
+            if (!deepLinkMessage.isNullOrEmpty()) {
+                Toast.makeText(this, "Deep Link: $deepLinkMessage", Toast.LENGTH_SHORT).show()
+                Log.d("LoginPage", "Deep Link Data: $data")
+            }
+        }
+    }
 }
-
-

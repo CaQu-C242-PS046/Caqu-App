@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -21,16 +20,15 @@
             android:exported="false" />
         <activity
             android:name="com.budi.caquapplicaton.ui.change.ChangePassword"
-            android:exported="false" /> <!-- SplashScreen as the launcher activity -->
+            android:exported="false" />
         <activity
             android:name="com.budi.caquapplicaton.ui.SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- GetStartedActivity -->
+        </activity>
         <activity
             android:name="com.budi.caquapplicaton.regist.GetStarted"
             android:exported="true" />
@@ -39,7 +37,14 @@
             android:exported="true" />
         <activity
             android:name="com.budi.caquapplicaton.regist.LoginPage"
-            android:exported="true" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="myapp" android:host="login" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="com.budi.caquapplicaton.MainActivity"
             android:exported="true" />

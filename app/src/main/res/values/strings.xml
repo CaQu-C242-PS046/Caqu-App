@@ -90,4 +90,10 @@
 
         8. Governing Law\
         These Terms and Conditions are governed and interpreted under the laws of [your country]. Any disputes will be resolved through mediation or courts with jurisdiction.</string>
+    <string name="subtitle_title">CAPAI CITA CITA!</string>
+    <string name="this_is_the_content_of_the_subtitle_section">Temukan minat kalian, \nterus berusaha untuk \nmencapai masa depan cerah impian kalian!</string>
+    <string name="ayo_kejar_mimpimu">Ayo kejar mimpimu!</string>
+    <string name="halo_user">Halo, User!</string>
+    <string name="halo">Halo, %s!</string>
+    <string name="banner">banner\n</string>
 </resources>
