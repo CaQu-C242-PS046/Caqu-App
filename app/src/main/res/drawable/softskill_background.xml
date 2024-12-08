@@ -1,8 +1,0 @@
-<!-- res/drawable/bottom_background.xml -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#82B1FF" /> <!-- Ganti dengan warna latar belakang sesuai kebutuhan -->
-    <corners android:radius="16dp" /> <!-- Radius untuk membuat sudut melengkung -->
-    <stroke
-        android:width="2dp"
-        android:color="#FFFFFF" /> <!-- Ganti dengan warna border sesuai kebutuhan -->
-</shape>
