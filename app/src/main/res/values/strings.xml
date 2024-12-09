@@ -99,4 +99,9 @@
     <string name="banner">banner\n</string>
     <string name="soft_skills">Soft Skills</string>
     <string name="toolbar_background" />
+    <string name="password_requests_fill">Masukkan Password Baru Anda</string>
+    <string name="submit">SUBMIT</string>
+    <string name="email_not_found">Email not found</string>
+    <string name="network_error">Network error, please try again</string>
+    <string name="back">Back</string>
 </resources>

@@ -12,6 +12,12 @@ data class LoginResponse(
     val refreshToken: String
 )
 
+data class ResetPasswordResponse(
+    val message: String
+)
+
 data class ChangePasswordResponse(
     val message: String
 )
+
+

@@ -1,51 +1,123 @@
-<LinearLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="16dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#F9F9F9">
 
-    <!-- Title Skill -->
-    <TextView
-        android:id="@+id/tvSoftSkillName"
-        android:text="Soft Skill Name"
-        android:textSize="24sp"
-        android:textStyle="bold"
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/background"
+        android:theme="?attr/actionBarTheme"
+        android:elevation="4dp">
 
-    <!-- Video Title -->
-    <TextView
-        android:id="@+id/tvVideoTitle"
-        android:text="Video Title"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp">
+
+            <!-- Back Button -->
+            <ImageView
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_arrow_back_ios_24_2"
+                android:contentDescription="@string/back" />
+
+            <!-- Toolbar Title -->
+            <TextView
+                android:id="@+id/toolbarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/soft_skills"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <!-- Scrollable Content -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:fillViewport="true">
 
-    <!-- Video Description -->
-    <TextView
-        android:id="@+id/tvVideoDescription"
-        android:text="Video Description"
-        android:textSize="14sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <!-- Video Thumbnail -->
-    <ImageView
-        android:id="@+id/ivVideoThumbnail"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        android:layout_marginTop="8dp"/>
+            <!-- Title Skill -->
+            <TextView
+                android:id="@+id/tvSoftSkillName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Soft Skill Name"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:paddingBottom="8dp"
+                android:textAlignment="center"/>
 
-    <!-- Video Link -->
-    <TextView
-        android:id="@+id/tvVideoLink"
-        android:text="Watch Video"
-        android:textColor="#0000FF"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"/>
+            <!-- Video Title -->
+            <TextView
+                android:id="@+id/tvVideoTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Video Title"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:padding="12dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/rounded_softskill_list"
+                android:textColor="@android:color/white" />
 
-</LinearLayout>
+            <!-- Video Thumbnail -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <ImageView
+                    android:id="@+id/ivVideoThumbnail"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop" />
+            </androidx.cardview.widget.CardView>
+
+            <!-- Video Link -->
+            <TextView
+                android:id="@+id/tvVideoLink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Watch Video"
+                android:textColor="#0000FF"
+                android:textStyle="bold"
+                android:layout_marginTop="12dp"
+                android:layout_gravity="center"
+                android:padding="8dp" />
+
+            <!-- Video Description -->
+            <TextView
+                android:id="@+id/tvVideoDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Video Description"
+                android:textSize="16sp"
+                android:layout_marginTop="16dp"
+                android:padding="16dp"
+                android:background="@drawable/rounded_softskill_list"
+                android:textColor="@android:color/black"
+                android:lineSpacingExtra="4dp" />
+        </LinearLayout>
+    </ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
