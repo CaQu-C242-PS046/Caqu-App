@@ -11,6 +11,10 @@ data class LoginRequest(
     val password: String
 )
 
+data class ResetPasswordRequest(
+    val email: String
+)
+
 data class ChangePasswordRequest(
     val oldPassword: String,
     val newPassword: String

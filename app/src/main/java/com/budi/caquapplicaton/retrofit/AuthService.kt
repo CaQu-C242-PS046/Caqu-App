@@ -19,5 +19,8 @@ interface AuthService {
         @Header("Authorization") token: String,
         @Body request: ChangePasswordRequest
     ): Response<ChangePasswordResponse>
+
+    @POST("/forgot-password")
+    fun forgotPassword(@Body request: ResetPasswordRequest): Call<ResetPasswordResponse>
 }
 
