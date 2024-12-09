@@ -6,6 +6,13 @@
     android:id="@+id/fragment_home"
     android:background="@color/white">
 
+    <android.widget.ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
     <!-- AppBarLayout -->
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -187,6 +194,7 @@
                     tools:listitem="@layout/item_horizontal"
                     app:layoutManager="LinearLayoutManager" />
 
+                <!-- Recomendation Section -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -7,7 +7,9 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Header
 import retrofit2.http.POST
+
 interface BaseService {
+
     // Mendapatkan daftar nama soft skills
     @GET("softSkills/all")
     suspend fun getSoftSkillNames(
@@ -21,19 +23,29 @@ interface BaseService {
         @Header("Authorization") token: String // Menambahkan parameter token
     ): Response<SoftSkillDetail>
 
-    @GET("question/{number}")
+    // Mendapatkan pertanyaan berdasarkan nomor
+    @GET("/quiz/question/{number}")
     fun getQuestion(
-        @Path("number") number: Int
+        @Path("number") number: Int,
+        @Header("Authorization") token: String // Menambahkan parameter token
     ): Call<QuestionResponse>
 
-    @POST("answer")
+    // Mengirimkan jawaban untuk pertanyaan tertentu
+    @POST("/quiz/answer")
     fun submitAnswer(
-        @Body answer: AnswerRequest
+        @Body answer: AnswerRequest,
+        @Header("Authorization") token: String // Menambahkan parameter token
     ): Call<GenericResponse>
 
-    @GET("quiz-status")
-    fun getQuizStatus(): Call<QuizStatusResponse>
+    // Mendapatkan status kuis
+    @GET("/quiz/quiz-status")
+    fun getQuizStatus(
+        @Header("Authorization") token: String // Menambahkan parameter token
+    ): Call<QuizStatusResponse>
 
-    @POST("submit")
-    fun submitQuiz(): Call<RecommendationResponse>
+    // Menyelesaikan kuis dan mendapatkan rekomendasi
+    @POST("/quiz/submit")
+    fun submitQuiz(
+        @Header("Authorization") token: String // Menambahkan parameter token
+    ): Call<RecommendationResponse>
 }

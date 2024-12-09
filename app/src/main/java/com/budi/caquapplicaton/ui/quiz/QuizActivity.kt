@@ -1,77 +1,101 @@
 package com.budi.caquapplicaton.ui.quiz
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.budi.caquapplication.R
 import com.budi.caquapplication.databinding.ActivityQuizQuestionBinding
-import com.budi.caquapplicaton.retrofit.AnswerRequest
-import com.budi.caquapplicaton.retrofit.GenericResponse
-import com.budi.caquapplicaton.retrofit.QuestionResponse
-import com.budi.caquapplicaton.retrofit.QuizClient
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.budi.caquapplication.utils.SharedPreferencesHelper
 
 class QuizActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityQuizQuestionBinding
+    private val viewModel: QuizViewModel by viewModels()
+    private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
+    private var token: String = ""
     private var currentQuestionId = 1
+    private var selectedAnswerValue: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityQuizQuestionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        loadQuestion(currentQuestionId)
+        sharedPreferencesHelper = SharedPreferencesHelper(this)
+        val accessToken = sharedPreferencesHelper.getAccessToken()
+        token = "Bearer $accessToken"
 
-        binding.btnHappy.setOnClickListener { submitAnswer(currentQuestionId, "Happy") }
-        binding.btnSmile.setOnClickListener { submitAnswer(currentQuestionId, "Smile") }
-        binding.btnNeutral.setOnClickListener { submitAnswer(currentQuestionId, "Neutral") }
-        binding.btnSad.setOnClickListener { submitAnswer(currentQuestionId, "Sad") }
-        binding.btnAngry.setOnClickListener { submitAnswer(currentQuestionId, "Angry") }
+        setupObservers()
+        setupAnswerButtons()
+
+        viewModel.loadQuestion(currentQuestionId, token)
 
         binding.nextBtn.setOnClickListener {
-            // Navigate to next question
-            currentQuestionId++
-            loadQuestion(currentQuestionId)
+            if (selectedAnswerValue != 0) {
+                viewModel.submitAnswer(currentQuestionId, selectedAnswerValue, token)
+            } else {
+                Toast.makeText(this, "Pilih jawaban terlebih dahulu!", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
-    private fun loadQuestion(questionNumber: Int) {
-        QuizClient.instance.getQuestion(questionNumber).enqueue(object : Callback<QuestionResponse> {
-            override fun onResponse(call: Call<QuestionResponse>, response: Response<QuestionResponse>) {
-                if (response.isSuccessful) {
-                    val question = response.body()
-                    binding.questionTextview.text = question?.question
-                    binding.questionIndicatorTextview.text = "Question $questionNumber/20"
-                } else {
-                    Toast.makeText(this@QuizActivity, "Failed to load question", Toast.LENGTH_SHORT).show()
-                }
-            }
+    private fun setupObservers() {
+        viewModel.questionResponse.observe(this) { question ->
+            binding.questionTextview.text = question.question
+            binding.questionIndicatorTextview.text = "Question $currentQuestionId / ${viewModel.totalQuestions}"
+            resetButtonColors()
+        }
 
-            override fun onFailure(call: Call<QuestionResponse>, t: Throwable) {
-                Log.e("QuizActivity", "Error: ${t.message}")
-                Toast.makeText(this@QuizActivity, "Network error", Toast.LENGTH_SHORT).show()
+        viewModel.submitResponse.observe(this) { response ->
+            if (response.success) {
+                Toast.makeText(this, "Jawaban dikirim!", Toast.LENGTH_SHORT).show()
+                viewModel.checkQuizStatus(token)
+            } else {
+                Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()
             }
-        })
+        }
+
+        viewModel.quizStatusResponse.observe(this) { status ->
+            val nextQuestion = status.quizStatus.firstOrNull { !it.answered }
+            if (nextQuestion != null) {
+                currentQuestionId = nextQuestion.questionId
+                viewModel.loadQuestion(currentQuestionId, token)
+            } else {
+                Toast.makeText(this, "Kuis selesai!", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+        }
     }
 
-    private fun submitAnswer(questionId: Int, answer: String) {
-        val answerRequest = AnswerRequest(question_id = questionId, answer = answer)
-        QuizClient.instance.submitAnswer(answerRequest).enqueue(object : Callback<GenericResponse> {
-            override fun onResponse(call: Call<GenericResponse>, response: Response<GenericResponse>) {
-                if (response.isSuccessful) {
-                    Toast.makeText(this@QuizActivity, "Answer submitted: $answer", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this@QuizActivity, "Failed to submit answer", Toast.LENGTH_SHORT).show()
-                }
-            }
+    private fun setupAnswerButtons() {
+        val buttonToValueMap = mapOf(
+            binding.btnHappy to 5,
+            binding.btnSmile to 4,
+            binding.btnNeutral to 3,
+            binding.btnSad to 2,
+            binding.btnAngry to 1
+        )
 
-            override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                Log.e("QuizActivity", "Error: ${t.message}")
-                Toast.makeText(this@QuizActivity, "Network error", Toast.LENGTH_SHORT).show()
+        for ((button, value) in buttonToValueMap) {
+            button.setOnClickListener {
+                selectedAnswerValue = value
+                resetButtonColors()
+                button.setBackgroundColor(getColor(R.color.button_selected_color))
             }
-        })
+        }
+    }
+
+    private fun resetButtonColors() {
+        val buttons = listOf(
+            binding.btnHappy,
+            binding.btnSmile,
+            binding.btnNeutral,
+            binding.btnSad,
+            binding.btnAngry
+        )
+        for (button in buttons) {
+            button.setBackgroundColor(getColor(R.color.button_default_color))
+        }
     }
 }

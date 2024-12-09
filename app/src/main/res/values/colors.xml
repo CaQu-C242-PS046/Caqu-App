@@ -14,4 +14,6 @@
     <color name="ic_launcher_background">#ffffff</color>
     <color name="grey">#B3C8CF</color>
     <color name="isback">#F4F6FF</color>
+    <color name="button_default_color">#DBECF8</color>
+    <color name="button_selected_color">#80B3F4</color>
 </resources>
