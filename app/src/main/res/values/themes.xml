@@ -11,5 +11,20 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <!-- Customize your theme here. -->
+        <style name="cardBackground" parent="Widget.MaterialComponents.CardView">>
+            <item name="cardBackgroundColor">@color/white</item>
+        </style>
+
+        <style name="cardEventBackground">
+            <item name="cardBackgroundColor">@color/white</item>
+        </style>
+
+        <style name="textPrimary">
+            <item name="android:textColor">@color/black</item>
+        </style>
+
+        <style name="textSecondary">
+            <item name="android:textColor">@color/black</item>
+        </style>
     </style>
 </resources>
