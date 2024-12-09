@@ -98,5 +98,9 @@
     <string name="halo">Halo, %s!</string>
     <string name="banner">banner\n</string>
     <string name="soft_skills">Soft Skills</string>
+    <string name="history_image">History Image</string>
+    <string name="history_title">History Title</string>
+    <string name="grade">Grade</string>
+    <string name="score">Score</string>
     <string name="toolbar_background" />
 </resources>
