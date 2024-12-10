@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("kotlin-parcelize")
+    id("com.google.devtools.ksp")
 }
 
 val localProperties = Properties()
@@ -77,4 +78,7 @@ dependencies {
     implementation (libs.androidx.credentials)
     implementation (libs.androidx.credentials.play.services.auth)
     implementation (libs.googleid)
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
 }

@@ -7,58 +7,49 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.budi.caquapplication.R
 import com.budi.caquapplication.databinding.FragmentHomeBinding
 import com.budi.caquapplication.utils.SharedPreferencesHelper
+import com.budi.caquapplicaton.room.AppDatabase
 import com.budi.caquapplicaton.ui.quiz.QuizActivity
-import com.google.android.material.appbar.AppBarLayout
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
+    private lateinit var database: AppDatabase
+    private lateinit var adapter: RecommendationAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate layout and initialize binding
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        // Hide action bar
         (activity as AppCompatActivity).supportActionBar?.hide()
 
         // Initialize SharedPreferencesHelper
         sharedPreferencesHelper = SharedPreferencesHelper(requireContext())
 
-        // Set welcome text with username
+        // Initialize database
+        database = AppDatabase.getInstance(requireContext())
+
+        // Setup RecyclerView
+        adapter = RecommendationAdapter()
+        binding.historyRecycle.adapter = adapter
+
+        // Observe data from database
+        database.careerRecommendationDao().getAllRecommendations().observe(viewLifecycleOwner) { recommendations ->
+            adapter.setData(recommendations)
+        }
+
+        // Welcome text
         val username = sharedPreferencesHelper.getUsername() ?: "User"
         binding.welcomeText.text = getString(R.string.halo, username)
 
-        // Observe ViewModel (optional)
-        val homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        homeViewModel.text.observe(viewLifecycleOwner) { welcomeText ->
-            binding.welcomeText.text = welcomeText
-        }
-
-        // Set AppBarLayout collapse logic
-        binding.appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-            val totalScrollRange = appBarLayout.totalScrollRange
-            if (totalScrollRange + verticalOffset == 0) {
-                // Collapsed
-                binding.toolbarMessage.visibility = View.GONE
-            } else {
-                // Expanded
-                binding.toolbarMessage.visibility = View.VISIBLE
-            }
-        })
-
-        // Set click listener for recommendation button
         binding.recommendButton.setOnClickListener {
-            // Example action: Navigate to another screen
             startActivity(Intent(requireContext(), QuizActivity::class.java))
         }
 
@@ -70,3 +61,4 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 }
+
