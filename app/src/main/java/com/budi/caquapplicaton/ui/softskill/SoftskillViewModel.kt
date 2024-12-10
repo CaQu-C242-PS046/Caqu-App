@@ -4,11 +4,12 @@ import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.budi.caquapplication.utils.SharedPreferencesHelper
 import com.budi.caquapplicaton.retrofit.ApiClient
 import com.budi.caquapplicaton.retrofit.AuthService
 import com.budi.caquapplicaton.retrofit.BaseClient
+import com.budi.caquapplicaton.retrofit.RefreshTokenRequest
 import com.budi.caquapplicaton.retrofit.SoftSkillDetail
+import com.budi.caquapplicaton.utils.SharedPreferencesHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -36,16 +37,15 @@ class SoftskillViewModel(
         }
 
         try {
-            // Mendapatkan response dari login menggunakan refresh token yang sudah ada
             val response = withContext(Dispatchers.IO) {
                 ApiClient.getClient().create(AuthService::class.java)
-                    .login(refreshToken) // Mengirim refresh token langsung
+                    .refreshAuthToken(RefreshTokenRequest(refreshToken))
             }
 
             if (response.isSuccessful) {
                 response.body()?.let {
                     // Menyimpan token baru
-                    sharedPreferencesHelper.saveTokens(it.accessToken, it.refreshToken)
+                    sharedPreferencesHelper.saveTokens(it.accessToken, refreshToken)
                 }
                 return true
             } else {
@@ -76,7 +76,7 @@ class SoftskillViewModel(
                 }
             } else if (response.code() == 401) { // Token expired
                 if (getNewAccessToken()) {
-                    token = sharedPreferencesHelper.getAccessToken() ?: return@fetchSoftSkills
+                    token = sharedPreferencesHelper.getAccessToken() ?: return
                     val retryResponse = withContext(Dispatchers.IO) {
                         api.getSoftSkillNames("Bearer $token")
                     }
@@ -116,7 +116,7 @@ class SoftskillViewModel(
                 }
             } else if (response.code() == 401) { // Token expired
                 if (getNewAccessToken()) {
-                    token = sharedPreferencesHelper.getAccessToken() ?: return@fetchSoftSkillDetail
+                    token = sharedPreferencesHelper.getAccessToken() ?: return
                     val retryResponse = withContext(Dispatchers.IO) {
                         api.getSoftSkillDetail(encodedName, "Bearer $token")
                     }
@@ -137,7 +137,3 @@ class SoftskillViewModel(
         }
     }
 }
-
-
-
-

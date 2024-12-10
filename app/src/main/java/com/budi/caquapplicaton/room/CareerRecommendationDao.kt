@@ -13,5 +13,8 @@ interface CareerRecommendationDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertRecommendation(recommendation: CareerRecommendationEntity)
+
+    @Query("DELETE FROM CareerRecommendationEntity")
+    suspend fun clearAllRecommendations()
 }
 

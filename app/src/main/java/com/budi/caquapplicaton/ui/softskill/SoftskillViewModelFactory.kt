@@ -3,7 +3,7 @@ package com.budi.caquapplicaton.ui.softskill
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.budi.caquapplication.utils.SharedPreferencesHelper
+import com.budi.caquapplicaton.utils.SharedPreferencesHelper
 
 class SoftskillViewModelFactory(
     private val sharedPreferencesHelper: SharedPreferencesHelper

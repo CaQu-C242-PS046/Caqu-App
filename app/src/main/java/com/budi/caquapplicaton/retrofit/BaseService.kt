@@ -54,11 +54,11 @@ interface BaseService {
         @Header("Authorization") token: String // Menambahkan parameter token
     ): Call<RecommendationResponse>
 
-    @GET("/career/{name}")
-    fun getCareerDetail(
-        @Path("name", encoded = true) name: String, // Parameter nama karir
-        @Header("Authorization") token: String // Menambahkan parameter token
-    ): Call<CareerResponse>
+    @GET("career/{name}")
+    suspend fun getCareerDetail(
+        @Path("name", encoded = true) name: String,
+        @Header("Authorization") token: String
+    ): Response<CareerResponse>
 
 
 }

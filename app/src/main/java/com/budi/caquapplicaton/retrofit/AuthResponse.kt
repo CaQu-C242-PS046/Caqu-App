@@ -20,4 +20,13 @@ data class ChangePasswordResponse(
     val message: String
 )
 
+data class ForgotPasswordResponse(
+    val message: String
+)
+
+data class RefreshTokenResponse(
+    val message: String,
+    val success: Boolean,
+    val accessToken: String
+)
 

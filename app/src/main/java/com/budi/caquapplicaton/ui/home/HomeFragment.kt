@@ -9,9 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.budi.caquapplication.R
 import com.budi.caquapplication.databinding.FragmentHomeBinding
-import com.budi.caquapplication.utils.SharedPreferencesHelper
 import com.budi.caquapplicaton.room.AppDatabase
 import com.budi.caquapplicaton.ui.quiz.QuizActivity
+import com.budi.caquapplicaton.utils.SharedPreferencesHelper
 
 class HomeFragment : Fragment() {
 

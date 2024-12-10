@@ -49,7 +49,7 @@
     <string name="forgot_password_title">Forgot Password</string>
     <string name="reset_password_title">Reset Password Request</string>
     <string name="old_password_fill">Please Input Your Old Password</string>
-    <string name="email_requests_fill">Please Input Your Registered Email</string>
+    <string name="email_requests_fill">Masukkan Email anda yang terdaftar</string>
     <string name="email_empty_warning">Please enter your email address.</string>
     <string name="email_sent_success">Password reset email sent successfully!</string>
     <string name="change_password_fill">Please Input Minimum 8 Characters </string>

@@ -7,7 +7,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.budi.caquapplication.R
 import com.budi.caquapplication.databinding.ActivityQuizQuestionBinding
-import com.budi.caquapplication.utils.SharedPreferencesHelper
+import com.budi.caquapplicaton.utils.SharedPreferencesHelper
 
 class QuizActivity : AppCompatActivity() {
 

@@ -8,13 +8,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.budi.caquapplication.R
 import com.budi.caquapplication.databinding.LoginPageBinding
-import com.budi.caquapplication.utils.SharedPreferencesHelper
 import com.budi.caquapplicaton.MainActivity
 import com.budi.caquapplicaton.retrofit.ApiClient
 import com.budi.caquapplicaton.retrofit.AuthService
 import com.budi.caquapplicaton.retrofit.LoginRequest
 import com.budi.caquapplicaton.retrofit.LoginResponse
-import com.budi.caquapplicaton.ui.reset.ResetPassword
+import com.budi.caquapplicaton.ui.reset.ResetPasswordActivity
+import com.budi.caquapplicaton.utils.SharedPreferencesHelper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -53,7 +53,7 @@ class LoginPage : AppCompatActivity() {
         }
 
         binding.forgotPasswordTextView.setOnClickListener {
-            val intent = Intent(this, ResetPassword::class.java)
+            val intent = Intent(this, ResetPasswordActivity::class.java)
             startActivity(intent)
         }
 

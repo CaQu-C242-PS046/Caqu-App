@@ -12,7 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.budi.caquapplication.R
 import com.budi.caquapplication.databinding.FragmentSoftskillBinding
-import com.budi.caquapplication.utils.SharedPreferencesHelper
+import com.budi.caquapplicaton.utils.SharedPreferencesHelper
 import kotlinx.coroutines.launch
 
 class SoftskillFragment : Fragment() {
