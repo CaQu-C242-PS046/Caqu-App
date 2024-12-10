@@ -1,5 +1,6 @@
 package com.budi.caquapplicaton.ui.quiz
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -49,7 +50,6 @@ class QuizActivity : AppCompatActivity() {
 
         viewModel.submitResponse.observe(this) { response ->
             if (response.success) {
-                Toast.makeText(this, "Jawaban dikirim!", Toast.LENGTH_SHORT).show()
                 viewModel.checkQuizStatus(token)
             } else {
                 Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()
@@ -62,8 +62,19 @@ class QuizActivity : AppCompatActivity() {
                 currentQuestionId = nextQuestion.questionId
                 viewModel.loadQuestion(currentQuestionId, token)
             } else {
-                Toast.makeText(this, "Kuis selesai!", Toast.LENGTH_SHORT).show()
+                viewModel.submitQuiz(token) // Semua pertanyaan dijawab
+            }
+        }
+
+        viewModel.recommendationResponse.observe(this) { recommendation ->
+            if (recommendation != null) {
+                val intent = Intent(this, CareerRecommendationActivity::class.java).apply {
+                    putExtra(CareerRecommendationActivity.EXTRA_RECOMMENDATION, recommendation.predicted_career)
+                }
+                startActivity(intent)
                 finish()
+            } else {
+                Toast.makeText(this, "Rekomendasi tidak tersedia.", Toast.LENGTH_SHORT).show()
             }
         }
     }

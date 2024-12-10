@@ -5,6 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.budi.caquapplication.utils.SharedPreferencesHelper
+import com.budi.caquapplicaton.retrofit.ApiClient
+import com.budi.caquapplicaton.retrofit.AuthService
 import com.budi.caquapplicaton.retrofit.BaseClient
 import com.budi.caquapplicaton.retrofit.SoftSkillDetail
 import kotlinx.coroutines.Dispatchers
@@ -25,8 +27,39 @@ class SoftskillViewModel(
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
 
+    // Fungsi untuk mendapatkan token baru dengan menggunakan refresh token yang ada
+    private suspend fun getNewAccessToken(): Boolean {
+        val refreshToken = sharedPreferencesHelper.getRefreshToken()
+        if (refreshToken.isNullOrEmpty()) {
+            _errorMessage.postValue("Refresh token not available. Please log in.")
+            return false
+        }
+
+        try {
+            // Mendapatkan response dari login menggunakan refresh token yang sudah ada
+            val response = withContext(Dispatchers.IO) {
+                ApiClient.getClient().create(AuthService::class.java)
+                    .login(refreshToken) // Mengirim refresh token langsung
+            }
+
+            if (response.isSuccessful) {
+                response.body()?.let {
+                    // Menyimpan token baru
+                    sharedPreferencesHelper.saveTokens(it.accessToken, it.refreshToken)
+                }
+                return true
+            } else {
+                _errorMessage.postValue("Failed to refresh token: ${response.message()}")
+                return false
+            }
+        } catch (e: Exception) {
+            _errorMessage.postValue("Error refreshing token: ${e.message}")
+            return false
+        }
+    }
+
     suspend fun fetchSoftSkills() {
-        val token = sharedPreferencesHelper.getAccessToken()
+        var token = sharedPreferencesHelper.getAccessToken()
         if (token.isNullOrEmpty()) {
             _errorMessage.postValue("Token not available. Please log in.")
             return
@@ -36,9 +69,25 @@ class SoftskillViewModel(
             val response = withContext(Dispatchers.IO) {
                 api.getSoftSkillNames("Bearer $token")
             }
+
             if (response.isSuccessful) {
                 response.body()?.let {
                     _softSkills.postValue(it.data)
+                }
+            } else if (response.code() == 401) { // Token expired
+                if (getNewAccessToken()) {
+                    token = sharedPreferencesHelper.getAccessToken() ?: return@fetchSoftSkills
+                    val retryResponse = withContext(Dispatchers.IO) {
+                        api.getSoftSkillNames("Bearer $token")
+                    }
+
+                    if (retryResponse.isSuccessful) {
+                        retryResponse.body()?.let {
+                            _softSkills.postValue(it.data)
+                        }
+                    } else {
+                        _errorMessage.postValue("Failed to fetch soft skills after refreshing token.")
+                    }
                 }
             } else {
                 _errorMessage.postValue("Failed to fetch soft skills: ${response.message()}")
@@ -49,22 +98,36 @@ class SoftskillViewModel(
     }
 
     suspend fun fetchSoftSkillDetail(name: String) {
-        val token = sharedPreferencesHelper.getAccessToken()
+        var token = sharedPreferencesHelper.getAccessToken()
         if (token.isNullOrEmpty()) {
             _errorMessage.postValue("Token not available. Please log in.")
             return
         }
 
         try {
-            // Encode the name parameter before making the API call
             val encodedName = Uri.encode(name)
-
             val response = withContext(Dispatchers.IO) {
                 api.getSoftSkillDetail(encodedName, "Bearer $token")
             }
+
             if (response.isSuccessful) {
                 response.body()?.let {
                     _softSkillDetail.postValue(it)
+                }
+            } else if (response.code() == 401) { // Token expired
+                if (getNewAccessToken()) {
+                    token = sharedPreferencesHelper.getAccessToken() ?: return@fetchSoftSkillDetail
+                    val retryResponse = withContext(Dispatchers.IO) {
+                        api.getSoftSkillDetail(encodedName, "Bearer $token")
+                    }
+
+                    if (retryResponse.isSuccessful) {
+                        retryResponse.body()?.let {
+                            _softSkillDetail.postValue(it)
+                        }
+                    } else {
+                        _errorMessage.postValue("Failed to fetch soft skill detail after refreshing token.")
+                    }
                 }
             } else {
                 _errorMessage.postValue("Failed to fetch soft skill detail: ${response.message()}")
@@ -73,5 +136,8 @@ class SoftskillViewModel(
             _errorMessage.postValue("Error: ${e.message}")
         }
     }
-
 }
+
+
+
+

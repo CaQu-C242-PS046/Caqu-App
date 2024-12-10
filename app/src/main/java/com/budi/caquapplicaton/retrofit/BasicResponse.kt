@@ -64,9 +64,7 @@ data class QuizStatusItem(
 
 // Response untuk rekomendasi karir
 data class RecommendationResponse(
-    val success: Boolean,
-    val message: String,
-    val recommendedCareer: String
+    val predicted_career: String
 )
 
 // Tambahan untuk respon lainnya:
@@ -104,3 +102,13 @@ data class QuestionStatus(
     val questionText: String,
     val answered: Boolean
 )
+
+// Response untuk detail karir
+data class CareerResponse(
+    val namaKarir: String,
+    val skill: List<String>,
+    val pendidikan: List<String>,
+    val insight: List<String>,
+    val video: List<VideoDetail>
+)
+

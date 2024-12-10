@@ -20,6 +20,9 @@ class QuizViewModel : ViewModel() {
     private val _submitResponse = MutableLiveData<GenericResponse>()
     val submitResponse: LiveData<GenericResponse> get() = _submitResponse
 
+    private val _recommendationResponse = MutableLiveData<RecommendationResponse>()
+    val recommendationResponse: LiveData<RecommendationResponse> get() = _recommendationResponse
+
     var totalQuestions: Int = 0
 
     fun loadQuestion(questionId: Int, token: String) {
@@ -35,7 +38,7 @@ class QuizViewModel : ViewModel() {
                     }
                 }
             } catch (e: Exception) {
-                // Handle exception if needed
+                // Handle error
             }
         }
     }
@@ -51,7 +54,7 @@ class QuizViewModel : ViewModel() {
                     }
                 }
             } catch (e: Exception) {
-                // Handle exception if needed
+                // Handle error
             }
         }
     }
@@ -61,12 +64,29 @@ class QuizViewModel : ViewModel() {
             try {
                 val response = QuizClient.getQuizApi().getQuizStatus(token).execute()
                 if (response.isSuccessful) {
-                    withContext(Dispatchers.Main) {
-                        _quizStatusResponse.value = response.body()
+                    response.body()?.let { status ->
+                        withContext(Dispatchers.Main) {
+                            _quizStatusResponse.value = status
+                        }
                     }
                 }
             } catch (e: Exception) {
-                // Handle exception if needed
+                // Handle error
+            }
+        }
+    }
+
+    fun submitQuiz(token: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = QuizClient.getQuizApi().submitQuiz(token).execute()
+                if (response.isSuccessful) {
+                    withContext(Dispatchers.Main) {
+                        _recommendationResponse.value = response.body()
+                    }
+                }
+            } catch (e: Exception) {
+                // Handle error
             }
         }
     }

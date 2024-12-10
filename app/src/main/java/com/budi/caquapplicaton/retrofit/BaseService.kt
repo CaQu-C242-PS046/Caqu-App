@@ -16,6 +16,11 @@ interface BaseService {
         @Header("Authorization") token: String // Menambahkan parameter token
     ): Response<ResponseSoftSkills>
 
+    @POST("/auth/login")
+    suspend fun login(
+        @Body refreshToken: String // Refresh token yang sudah ada
+    ): Response<LoginResponse>
+
     // Mendapatkan detail soft skill berdasarkan nama
     @GET("softSkills/{name}")
     suspend fun getSoftSkillDetail(
@@ -44,8 +49,16 @@ interface BaseService {
     ): Call<QuizStatusResponse>
 
     // Menyelesaikan kuis dan mendapatkan rekomendasi
-    @POST("/quiz/submit")
+    @POST("/quiz/submitQuiz")
     fun submitQuiz(
         @Header("Authorization") token: String // Menambahkan parameter token
     ): Call<RecommendationResponse>
+
+    @GET("/career/{name}")
+    fun getCareerDetail(
+        @Path("name", encoded = true) name: String, // Parameter nama karir
+        @Header("Authorization") token: String // Menambahkan parameter token
+    ): Call<CareerResponse>
+
+
 }

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@drawable/background"
+    tools:context="com.budi.caquapplicaton.ui.quiz.CareerRecommendationActivity">
+
+    <!-- Judul -->
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/career_recommendation_title"
+        android:textSize="24sp"
+        android:textColor="@color/purple_700"
+        android:fontFamily="@font/montserratbold" />
+
+    <!-- Hasil Rekomendasi -->
+    <TextView
+        android:id="@+id/recommendationTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleTextView"
+        android:layout_marginTop="16dp"
+        android:padding="16dp"
+        android:background="@drawable/rounded_background"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:fontFamily="@font/montserratmedium" />
+
+    <!-- Tombol Lanjut -->
+    <Button
+        android:id="@+id/nextButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"
+        android:text="@string/lanjut"
+        android:background="@drawable/button_background"
+        android:textColor="@color/white" />
+</RelativeLayout>

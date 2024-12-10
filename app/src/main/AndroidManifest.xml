@@ -53,6 +53,7 @@
             android:exported="true" />
         <activity android:name="com.budi.caquapplicaton.ui.profile.TermsCondition" />
         <activity android:name="com.budi.caquapplicaton.ui.quiz.QuizActivity"/>
+        <activity android:name="com.budi.caquapplicaton.ui.quiz.CareerRecommendationActivity" />
     </application>
 
 </manifest>

@@ -11,6 +11,11 @@ interface AuthService {
     @POST("/auth/login")
     fun login(@Body loginRequest: LoginRequest): Call<LoginResponse>
 
+    @POST("/auth/login")
+    suspend fun login(
+        @Body refreshToken: String // Refresh token yang sudah ada
+    ): Response<LoginResponse>
+
     @POST("/auth/register")
     fun register(@Body request: RegisterRequest): Call<RegisterResponse>
 

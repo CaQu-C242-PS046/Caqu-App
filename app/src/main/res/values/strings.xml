@@ -108,4 +108,8 @@
     <string name="email_not_found">Email not found</string>
     <string name="network_error">Network error, please try again</string>
     <string name="back">Back</string>
+    <string name="career_recommendation_title">Rekomendasi Karir</string>
+    <string name="no_recommendation">Tidak ada rekomendasi tersedia</string>
+    <string name="lanjut">Lanjut</string>
+
 </resources>
