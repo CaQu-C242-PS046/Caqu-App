@@ -13,7 +13,8 @@ class SharedPreferencesHelper(context: Context) {
         private const val REFRESH_TOKEN = "refreshToken"
         private const val IS_LOGGED_IN = "isLoggedIn"
         private const val USERNAME = "username"
-        private const val LAST_LOGIN_TIME = "lastLoginTime" // Contoh tambahan untuk waktu login terakhir
+        private const val LAST_LOGIN_TIME = "lastLoginTime"
+        private const val LAST_RECOMMENDATION = "lastRecommendation"
     }
 
     // Simpan token akses dan token refresh
@@ -33,6 +34,14 @@ class SharedPreferencesHelper(context: Context) {
             apply()
         }
     }
+
+    fun saveLastRecommendation(recommendation: String) {
+        sharedPreferences.edit().apply {
+            putString(LAST_RECOMMENDATION, recommendation)
+            apply()
+        }
+    }
+
 
     // Simpan waktu login terakhir (opsional)
     fun saveLastLoginTime(timestamp: Long) {
@@ -55,6 +64,10 @@ class SharedPreferencesHelper(context: Context) {
     // Ambil nama pengguna
     fun getUsername(): String? {
         return sharedPreferences.getString(USERNAME, null)
+    }
+
+    fun getLastRecommendation(): String? {
+        return sharedPreferences.getString(LAST_RECOMMENDATION, null)
     }
 
     // Ambil waktu login terakhir

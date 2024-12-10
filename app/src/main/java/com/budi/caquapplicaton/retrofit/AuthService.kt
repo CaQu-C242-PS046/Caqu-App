@@ -3,6 +3,7 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -40,5 +41,11 @@ interface AuthService {
         @Path("token") token: String,
         @Body request: ResetPasswordRequest
     ): Response<ResetPasswordResponse>
+
+    @GET("career/{name}")
+    suspend fun getCareerDetail(
+        @Path("name", encoded = true) name: String,
+        @Header("Authorization") token: String
+    ): Response<CareerResponse>
 }
 
