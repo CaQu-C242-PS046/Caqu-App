@@ -1,6 +1,7 @@
 package com.budi.caquapplicaton.ui.career
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -97,7 +98,34 @@ class CareerFragment : Fragment() {
             Glide.with(this)
                 .load(careerResponse.image)
                 .into(binding.careerImage)
+
+            binding.tvPlaylistLink.setOnClickListener {
+                val playlistUrl = careerResponse.video.firstOrNull()?.snippet?.playlistLink ?: ""
+                if (playlistUrl.isNotEmpty()) {
+                    val intent = Intent(Intent.ACTION_VIEW).apply {
+                        data = Uri.parse(playlistUrl)
+                    }
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(requireContext(), "URL Playlist tidak tersedia", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            binding.tvFeedbackLink.setOnClickListener {
+                val feedbackUrl = careerResponse.feedback.videoLink
+                if (feedbackUrl.isNotEmpty()) {
+                    val intent = Intent(Intent.ACTION_VIEW).apply {
+                        data = Uri.parse(feedbackUrl)
+                    }
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(requireContext(), "URL Feedback tidak tersedia", Toast.LENGTH_SHORT).show()
+                }
+            }
+
         }
+
+
 
         viewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
             Log.e(TAG, "fetchCareerDetailsWithRetry: Error occurred: $errorMessage")

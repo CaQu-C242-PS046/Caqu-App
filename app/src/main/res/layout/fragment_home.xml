@@ -193,24 +193,6 @@
                     android:layout_marginBottom="16dp"
                     tools:listitem="@layout/item_history"
                     app:layoutManager="LinearLayoutManager" />
-
-                <!-- Recomendation Section -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/rekomendasi"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/my_prime"
-                    android:fontFamily="@font/montserratmedium"
-                    android:layout_marginBottom="8dp" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rekomendasi_recycle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:listitem="@layout/item_feedback"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

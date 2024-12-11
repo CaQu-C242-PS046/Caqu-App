@@ -3,14 +3,12 @@ package com.budi.caquapplicaton.ui.change
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.budi.caquapplication.R
 import com.budi.caquapplicaton.ui.ViewModelFactory
@@ -32,9 +30,9 @@ class ChangePassword : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_change_password)
 
-        // Inisialisasi SharedPreferencesHelper dan ViewModel
+        // Initialize SharedPreferencesHelper and ViewModel
         sharedPreferencesHelper = SharedPreferencesHelper(this)
-        changePasswordViewModel = ViewModelProvider(this, ViewModelFactory(applicationContext)).get(ChangePasswordViewModel::class.java)
+        changePasswordViewModel = ViewModelProvider(this, ViewModelFactory(applicationContext))[ChangePasswordViewModel::class.java]
 
         oldPasswordEditText = findViewById(R.id.old_password)
         newPasswordEditText = findViewById(R.id.new_password)
@@ -48,30 +46,25 @@ class ChangePassword : AppCompatActivity() {
 
         setupPasswordValidation()
 
-        // Menangani klik tombol "Kembali"
+        // Handle "Back" button click
         backButton.setOnClickListener { onBackPressed() }
 
-        // Menangani klik tombol "Confirm Change"
+        // Handle "Confirm Change" button click
         confirmChangeButton.setOnClickListener {
             val oldPassword = oldPasswordEditText.text.toString()
             val newPassword = newPasswordEditText.text.toString()
             changePasswordViewModel.changePassword(oldPassword, newPassword)
         }
 
-        // Observasi perubahan status loading
-        changePasswordViewModel.isLoading.observe(this, Observer { isLoading ->
-            if (isLoading) {
-                // Tampilkan loading jika status loading true
-                confirmChangeButton.isEnabled = false
-            } else {
-                confirmChangeButton.isEnabled = true
-            }
-        })
+        // Observe loading state changes
+        changePasswordViewModel.isLoading.observe(this) { isLoading ->
+            confirmChangeButton.isEnabled = !isLoading
+        }
 
-        // Observasi pesan respons dari ViewModel
-        changePasswordViewModel.responseMessage.observe(this, Observer { message ->
+        // Observe response message from ViewModel
+        changePasswordViewModel.responseMessage.observe(this) { message ->
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-        })
+        }
     }
 
     private fun setupPasswordVisibilityToggle(editText: EditText, iconView: ImageView) {
@@ -100,6 +93,7 @@ class ChangePassword : AppCompatActivity() {
     private fun setupPasswordValidation() {
         val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 validatePasswords()
             }
@@ -118,11 +112,16 @@ class ChangePassword : AppCompatActivity() {
         val isOldPasswordValid = oldPassword.isNotBlank()
         val isNewPasswordValid = isValidPassword(newPassword)
 
+        if (oldPassword == newPassword) {
+            Toast.makeText(this, "Password baru tidak boleh sama dengan password lama", Toast.LENGTH_SHORT).show()
+            confirmChangeButton.isEnabled = false
+            return
+        }
+
         confirmChangeButton.isEnabled = isOldPasswordValid && isNewPasswordValid
     }
 
     private fun isValidPassword(password: String): Boolean {
-        // Basic password validation
         return password.length >= 8 &&
                 password.any { it.isUpperCase() } &&
                 password.any { it.isLowerCase() } &&

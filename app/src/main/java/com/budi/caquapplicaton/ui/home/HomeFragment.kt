@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.budi.caquapplication.R
 import com.budi.caquapplication.databinding.FragmentHomeBinding
 import com.budi.caquapplicaton.retrofit.QuizClient
@@ -27,6 +28,7 @@ class HomeFragment : Fragment() {
     private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
     private lateinit var homeViewModel: HomeViewModel  // Deklarasi HomeViewModel
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -43,6 +45,8 @@ class HomeFragment : Fragment() {
         // Menyimpan dan menampilkan nama pengguna menggunakan ViewModel
         val username = sharedPreferencesHelper.getUsername() ?: "User"
         homeViewModel.setText(getString(R.string.halo, username))
+
+        loadHistoryData()
 
         // Observasi perubahan teks yang ada di ViewModel
         homeViewModel.text.observe(viewLifecycleOwner, { welcomeText ->
@@ -101,6 +105,19 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun loadHistoryData() {
+        val lastRecommendation = sharedPreferencesHelper.getLastRecommendation()
+        val historyData = mutableListOf<String>()
+
+        if (!lastRecommendation.isNullOrEmpty()) {
+            historyData.add(lastRecommendation) // Tambahkan data dari SharedPreferences
+        }
+
+        val historyAdapter = HistoryAdapter(historyData)
+        binding.historyRecycle.adapter = historyAdapter
+        binding.historyRecycle.layoutManager = LinearLayoutManager(requireContext())
     }
 
     private fun navigateToRecommendation() {
