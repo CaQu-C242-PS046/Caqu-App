@@ -1,21 +1,27 @@
 package com.budi.caquapplicaton.ui.career
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.budi.caquapplication.databinding.FragmentCareerBinding
 import com.budi.caquapplicaton.retrofit.AuthService
 import com.budi.caquapplicaton.retrofit.RetrofitClient
 import com.budi.caquapplicaton.room.AuthRepository
 import com.budi.caquapplicaton.utils.SharedPreferencesHelper
+import com.bumptech.glide.Glide
 import kotlinx.coroutines.launch
 
 class CareerFragment : Fragment() {
+
+    private val TAG = "CareerFragment"
 
     private var _binding: FragmentCareerBinding? = null
     private val binding get() = _binding!!
@@ -40,44 +46,66 @@ class CareerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Inisialisasi SharedPreferencesHelper, AuthRepository, dan CareerRepository
+        Log.d(TAG, "onViewCreated: Initializing components")
+
         sharedPreferencesHelper = SharedPreferencesHelper(requireContext())
         authRepository = AuthRepository(apiService, sharedPreferencesHelper)
         repository = CareerRepository(apiService)
 
-        // Ambil token dari SharedPreferences
         val token = sharedPreferencesHelper.getAccessToken()
+        Log.d(TAG, "onViewCreated: Token retrieved: $token")
 
         if (token.isNullOrEmpty()) {
             Toast.makeText(requireContext(), "Token tidak ditemukan, silakan login ulang", Toast.LENGTH_SHORT).show()
+            Log.e(TAG, "onViewCreated: Token not found")
             return
         }
 
-        // Ambil rekomendasi terakhir dari SharedPreferences
-        val careerName = sharedPreferencesHelper.getLastRecommendation() ?: ""
+        val careerName = sharedPreferencesHelper.getLastRecommendation()
+        Log.d(TAG, "onViewCreated: Last recommendation retrieved: $careerName")
 
-        if (careerName.isEmpty()) {
+        if (careerName.isNullOrEmpty()) {
             Toast.makeText(requireContext(), "Rekomendasi tidak tersedia, silakan lakukan quiz", Toast.LENGTH_SHORT).show()
+            Log.e(TAG, "onViewCreated: Career recommendation not available")
             return
         }
 
-        // Fetch data karir dengan token
         fetchCareerDetailsWithRetry(careerName, token)
+
+        // Setting up click listeners for the buttons
+        binding.feedbackCard.setOnClickListener {
+            // Navigate to FeedbackActivity
+            val intent = Intent(requireContext(), FeedbackActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.playlistCard.setOnClickListener {
+            // Navigate to PlaylistActivity
+            val intent = Intent(requireContext(), PlaylistActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun fetchCareerDetailsWithRetry(careerName: String, token: String) {
+        Log.d(TAG, "fetchCareerDetailsWithRetry: Fetching career details for $careerName")
         viewModel.fetchCareerDetails(careerName, "Bearer $token")
 
         viewModel.careerDetails.observe(viewLifecycleOwner) { careerResponse ->
-            // Update UI dengan data dari API
+            Log.d(TAG, "fetchCareerDetailsWithRetry: Career details retrieved: $careerResponse")
+
             binding.careerName.text = careerResponse.namaKarir
             binding.descriptionText.text = careerResponse.insight.joinToString("\n")
             binding.skillsText.text = careerResponse.skill.joinToString("\n")
             binding.educationText.text = careerResponse.pendidikan.joinToString("\n")
+
+            Glide.with(this)
+                .load(careerResponse.image)
+                .into(binding.careerImage)
         }
 
         viewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
-            if (errorMessage.contains("401")) { // Jika token expired
+            Log.e(TAG, "fetchCareerDetailsWithRetry: Error occurred: $errorMessage")
+            if (errorMessage.contains("401")) {
                 retryWithNewToken(careerName)
             } else {
                 Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
@@ -86,13 +114,15 @@ class CareerFragment : Fragment() {
     }
 
     private fun retryWithNewToken(careerName: String) {
+        Log.d(TAG, "retryWithNewToken: Attempting to refresh token")
         lifecycleScope.launch {
             val newToken = authRepository.refreshAccessToken()
             if (newToken != null) {
-                // Simpan token baru dan ulangi request
+                Log.d(TAG, "retryWithNewToken: New token retrieved: $newToken")
                 fetchCareerDetailsWithRetry(careerName, newToken)
             } else {
                 Toast.makeText(requireContext(), "Gagal memperbarui token, silakan login ulang", Toast.LENGTH_SHORT).show()
+                Log.e(TAG, "retryWithNewToken: Failed to refresh token")
             }
         }
     }
@@ -102,3 +132,4 @@ class CareerFragment : Fragment() {
         _binding = null
     }
 }
+

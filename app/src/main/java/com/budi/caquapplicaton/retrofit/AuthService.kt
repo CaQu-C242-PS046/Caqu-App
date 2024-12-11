@@ -47,5 +47,11 @@ interface AuthService {
         @Path("name", encoded = true) name: String,
         @Header("Authorization") token: String
     ): Response<CareerResponse>
+
+    @GET("career/{name}")
+    suspend fun getPlaylist(
+        @Path("name", encoded = true) name: String,
+        @Header("Authorization") token: String
+    ): Response<PlaylistItem>
 }
 
