@@ -65,10 +65,4 @@ interface BaseService {
         @Header("Authorization") token: String
     ): Response<CareerResponse>
 
-    @GET("playlist/{name}")
-    suspend fun getPlaylist(
-        @Path("name", encoded = true) name: String,
-        @Header("Authorization") token: String
-    ): Response<PlaylistItem>
-
 }

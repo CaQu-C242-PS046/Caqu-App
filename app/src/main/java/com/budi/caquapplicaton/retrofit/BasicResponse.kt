@@ -27,7 +27,8 @@ data class VideoDetail(
 // Thumbnails dari video
 @Parcelize
 data class Thumbnails(
-    val high: ThumbnailDetail
+    val high: ThumbnailDetail,
+    val default: ThumbnailDetail
 ) : Parcelable
 
 // Detail thumbnail
@@ -123,17 +124,27 @@ data class CareerResponse(
     val skill: List<String>,
     val pendidikan: List<String>,
     val insight: List<String>,
-    val image: String
+    val image: String,
+    val feedback: Feedback,
+    val video: List<VideoCareer>
 )
 
-data class PlaylistItem(
-    val data: List<String>
+data class VideoCareer(
+    val snippet : Snippet
 )
 
-data class PlaylistDetail(
-    val thumbnailUrl: String,
+data class Snippet(
+    val playlistLink: String,
     val title: String,
-    val link: String
+    val thumbnails: Thumbnails
 )
+
+@Parcelize
+data class Feedback(
+    val thumbnails: Thumbnails,
+    val title: String,
+    val videoLink: String
+) : Parcelable
+
 
 

@@ -72,18 +72,6 @@ class CareerFragment : Fragment() {
 
         fetchCareerDetailsWithRetry(careerName, token)
 
-        // Setting up click listeners for the buttons
-        binding.feedbackCard.setOnClickListener {
-            // Navigate to FeedbackActivity
-            val intent = Intent(requireContext(), FeedbackActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.playlistCard.setOnClickListener {
-            // Navigate to PlaylistActivity
-            val intent = Intent(requireContext(), PlaylistActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     private fun fetchCareerDetailsWithRetry(careerName: String, token: String) {
@@ -97,7 +85,15 @@ class CareerFragment : Fragment() {
             binding.descriptionText.text = careerResponse.insight.joinToString("\n")
             binding.skillsText.text = careerResponse.skill.joinToString("\n")
             binding.educationText.text = careerResponse.pendidikan.joinToString("\n")
+            binding.playlistTitle.text = careerResponse.video.joinToString(", ") { it.snippet?.title ?: "No Title" }
+            binding.feedbackTitle.text = careerResponse.feedback.title
 
+            Glide.with(this)
+                .load(careerResponse.feedback.thumbnails.high)
+                .into(binding.feedbackImage)
+            Glide.with(this)
+                .load(careerResponse.video.firstOrNull()?.snippet?.thumbnails)
+                .into(binding.playlistImage)
             Glide.with(this)
                 .load(careerResponse.image)
                 .into(binding.careerImage)

@@ -1,13 +1,12 @@
 package com.budi.caquapplicaton.retrofit
 
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 object QuizClient {
     private const val BASE_URL = "https://caqu-app-442406.et.r.appspot.com/"
 
     private fun getClient(): Retrofit {
-        return BaseClient.getClient() // Memanfaatkan BaseClient yang sudah ada
+        return BaseClient.getClient()
     }
 
     fun getQuizApi(): BaseService {

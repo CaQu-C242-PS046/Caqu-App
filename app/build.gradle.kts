@@ -80,5 +80,7 @@ dependencies {
     implementation (libs.googleid)
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
+    ksp(libs.glide)
     implementation(libs.androidx.room.ktx)
+
 }

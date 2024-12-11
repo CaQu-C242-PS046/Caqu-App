@@ -162,55 +162,108 @@
                 android:layout_marginTop="8dp" />
         </androidx.cardview.widget.CardView>
 
-        <!-- Feedback Section as Button-like CardView -->
+        <!-- Feedback Section as CardView with Image -->
         <androidx.cardview.widget.CardView
             android:id="@+id/feedbackCard"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             app:cardCornerRadius="12dp"
-            app:cardBackgroundColor="@color/my_prime"
+            app:cardBackgroundColor="@color/white"
             app:cardElevation="4dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/educationCard">
 
-            <TextView
-                android:id="@+id/feedbackText"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Feedback"
-                android:textSize="18sp"
-                android:textColor="@color/white"
-                android:padding="16dp"
-                android:gravity="center"
-                android:fontFamily="@font/regular" />
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/feedbackImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="@string/feedback_image"
+                    android:src="@drawable/background" />
+
+                <TextView
+                    android:id="@+id/tvFeedbackLink"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Watch Video"
+                    android:fontFamily="@font/montserratmedium"
+                    android:textColor="#0000FF"
+                    android:textStyle="bold"
+                    android:layout_marginTop="12dp"
+                    android:layout_gravity="center"
+                    android:padding="8dp" />
+
+                <TextView
+                    android:id="@+id/feedbackTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Feedback"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:padding="16dp"
+                    android:gravity="center"
+                    android:fontFamily="@font/regular" />
+            </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Playlist Section as Button-like CardView -->
+        <!-- Playlist Section as CardView with Image -->
         <androidx.cardview.widget.CardView
             android:id="@+id/playlistCard"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             app:cardCornerRadius="12dp"
-            app:cardBackgroundColor="@color/my_prime"
+            app:cardBackgroundColor="@color/white"
             app:cardElevation="4dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/feedbackCard">
 
-            <TextView
-                android:id="@+id/playlistText"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Go to Playlist"
-                android:textSize="18sp"
-                android:textColor="@color/white"
-                android:padding="16dp"
-                android:gravity="center"
-                android:fontFamily="@font/regular" />
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/playlistImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="@string/playlist_image"
+                    android:src="@drawable/background" />
+
+                <TextView
+                    android:id="@+id/tvPlaylistLink"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Watch Video"
+                    android:fontFamily="@font/montserratmedium"
+                    android:textColor="#0000FF"
+                    android:textStyle="bold"
+                    android:layout_marginTop="12dp"
+                    android:layout_gravity="center"
+                    android:padding="8dp" />
+
+                <TextView
+                    android:id="@+id/playlistTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Go to Playlist"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:padding="16dp"
+                    android:gravity="center"
+                    android:fontFamily="@font/regular" />
+            </LinearLayout>
         </androidx.cardview.widget.CardView>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </android.widget.ScrollView>

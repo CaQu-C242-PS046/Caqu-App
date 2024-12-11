@@ -112,5 +112,13 @@
     <string name="no_recommendation">Tidak ada rekomendasi tersedia</string>
     <string name="lanjut">Lanjut</string>
     <string name="career_image" />
+    <string name="video_thumbnail" />
+    <string name="Feedback">Feedback</string>
+    <string name="error_feedback_data_missing">data missing</string>
+    <string name="error_feedback_unavailable">no text\n</string>
+    <string name="error_feedback_failed">error</string>
+    <string name="feedback_description">deskripsi</string>
+    <string name="playlist_image" />
+    <string name="feedback_image" />
 
 </resources>
