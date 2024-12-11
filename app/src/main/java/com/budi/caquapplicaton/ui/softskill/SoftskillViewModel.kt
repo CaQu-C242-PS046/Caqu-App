@@ -36,7 +36,7 @@ class SoftskillViewModel(
             return false
         }
 
-        try {
+        return try {
             val response = withContext(Dispatchers.IO) {
                 ApiClient.getClient().create(AuthService::class.java)
                     .refreshAuthToken(RefreshTokenRequest(refreshToken))
@@ -44,22 +44,24 @@ class SoftskillViewModel(
 
             if (response.isSuccessful) {
                 response.body()?.let {
-                    // Menyimpan token baru
-                    sharedPreferencesHelper.saveTokens(it.accessToken, refreshToken)
+                    val newAccessToken = it.accessToken
+                    sharedPreferencesHelper.saveTokens(newAccessToken, refreshToken) // Simpan token baru
+                    return true
                 }
-                return true
+                false
             } else {
                 _errorMessage.postValue("Failed to refresh token: ${response.message()}")
-                return false
+                false
             }
         } catch (e: Exception) {
             _errorMessage.postValue("Error refreshing token: ${e.message}")
-            return false
+            false
         }
     }
 
+    // Mendapatkan data soft skills
     suspend fun fetchSoftSkills() {
-        var token = sharedPreferencesHelper.getAccessToken()
+        val token = sharedPreferencesHelper.getAccessToken()
         if (token.isNullOrEmpty()) {
             _errorMessage.postValue("Token not available. Please log in.")
             return
@@ -74,31 +76,21 @@ class SoftskillViewModel(
                 response.body()?.let {
                     _softSkills.postValue(it.data)
                 }
-            } else if (response.code() == 401) { // Token expired
+            } else if (response.code() == 401) { // Token kadaluarsa
                 if (getNewAccessToken()) {
-                    token = sharedPreferencesHelper.getAccessToken() ?: return
-                    val retryResponse = withContext(Dispatchers.IO) {
-                        api.getSoftSkillNames("Bearer $token")
-                    }
-
-                    if (retryResponse.isSuccessful) {
-                        retryResponse.body()?.let {
-                            _softSkills.postValue(it.data)
-                        }
-                    } else {
-                        _errorMessage.postValue("Failed to fetch soft skills after refreshing token.")
-                    }
+                    fetchSoftSkills() // Retry dengan token baru
                 }
             } else {
-                _errorMessage.postValue("Failed to fetch soft skills: ${response.message()}")
+                _errorMessage.postValue("Failed to fetch soft skills: Session has Expired Please Relogin ${response.message()}")
             }
         } catch (e: Exception) {
             _errorMessage.postValue("Error: ${e.message}")
         }
     }
 
+    // Mendapatkan detail soft skill berdasarkan nama
     suspend fun fetchSoftSkillDetail(name: String) {
-        var token = sharedPreferencesHelper.getAccessToken()
+        val token = sharedPreferencesHelper.getAccessToken()
         if (token.isNullOrEmpty()) {
             _errorMessage.postValue("Token not available. Please log in.")
             return
@@ -114,20 +106,9 @@ class SoftskillViewModel(
                 response.body()?.let {
                     _softSkillDetail.postValue(it)
                 }
-            } else if (response.code() == 401) { // Token expired
+            } else if (response.code() == 401) { // Token kadaluarsa
                 if (getNewAccessToken()) {
-                    token = sharedPreferencesHelper.getAccessToken() ?: return
-                    val retryResponse = withContext(Dispatchers.IO) {
-                        api.getSoftSkillDetail(encodedName, "Bearer $token")
-                    }
-
-                    if (retryResponse.isSuccessful) {
-                        retryResponse.body()?.let {
-                            _softSkillDetail.postValue(it)
-                        }
-                    } else {
-                        _errorMessage.postValue("Failed to fetch soft skill detail after refreshing token.")
-                    }
+                    fetchSoftSkillDetail(name) // Retry dengan token baru
                 }
             } else {
                 _errorMessage.postValue("Failed to fetch soft skill detail: ${response.message()}")

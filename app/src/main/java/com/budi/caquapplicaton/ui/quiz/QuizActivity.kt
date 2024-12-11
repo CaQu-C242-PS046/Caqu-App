@@ -12,7 +12,7 @@ import com.budi.caquapplicaton.utils.SharedPreferencesHelper
 class QuizActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityQuizQuestionBinding
-    private val viewModel: QuizViewModel by viewModels()
+    private val viewModel: QuizViewModel by viewModels { QuizViewModelFactory(SharedPreferencesHelper(this)) }
     private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
     private var token: String = ""
     private var currentQuestionId = 1
@@ -68,6 +68,10 @@ class QuizActivity : AppCompatActivity() {
 
         viewModel.recommendationResponse.observe(this) { recommendation ->
             if (recommendation != null) {
+                // Simpan rekomendasi ke SharedPreferences
+                sharedPreferencesHelper.saveLastRecommendation(recommendation.predicted_career)
+
+                // Pindah ke Activity CareerRecommendation
                 val intent = Intent(this, CareerRecommendationActivity::class.java).apply {
                     putExtra(CareerRecommendationActivity.EXTRA_RECOMMENDATION, recommendation.predicted_career)
                 }

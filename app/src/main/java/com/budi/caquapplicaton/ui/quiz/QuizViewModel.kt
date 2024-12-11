@@ -5,11 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.budi.caquapplicaton.retrofit.*
+import com.budi.caquapplicaton.utils.SharedPreferencesHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class QuizViewModel : ViewModel() {
+class QuizViewModel(private val sharedPreferencesHelper: SharedPreferencesHelper) : ViewModel() {
 
     private val _questionResponse = MutableLiveData<QuestionResponse>()
     val questionResponse: LiveData<QuestionResponse> get() = _questionResponse
@@ -89,5 +90,10 @@ class QuizViewModel : ViewModel() {
                 // Handle error
             }
         }
+    }
+
+    // Simpan rekomendasi ke SharedPreferences
+    fun saveRecommendationToPreferences(recommendation: String) {
+        sharedPreferencesHelper.saveLastRecommendation(recommendation)
     }
 }

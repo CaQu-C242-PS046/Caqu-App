@@ -103,12 +103,23 @@ data class QuestionStatus(
     val answered: Boolean
 )
 
+data class  VideoPlaylist(
+    val videoLink: String,
+    val title: String,
+    val thumbnails: Thumbnails
+)
+
+data class  VideoFeedback(
+    val videoLink: String,
+    val title: String,
+    val thumbnails: Thumbnails
+)
 // Response untuk detail karir
 data class CareerResponse(
     val namaKarir: String,
     val skill: List<String>,
     val pendidikan: List<String>,
     val insight: List<String>,
-    val video: List<VideoDetail>
+    val video: List<VideoPlaylist>,
 )
 

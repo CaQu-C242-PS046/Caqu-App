@@ -16,6 +16,11 @@ interface BaseService {
         @Header("Authorization") token: String // Menambahkan parameter token
     ): Response<ResponseSoftSkills>
 
+    @POST("/auth/refresh")
+    suspend fun refreshAuthToken(
+        @Body refreshTokenRequest: RefreshTokenRequest // Request body berupa refresh token
+    ): Response<RefreshTokenResponse>
+
     @POST("/auth/login")
     suspend fun login(
         @Body refreshToken: String // Refresh token yang sudah ada

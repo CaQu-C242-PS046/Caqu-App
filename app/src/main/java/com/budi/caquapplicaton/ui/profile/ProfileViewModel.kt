@@ -50,7 +50,7 @@ class ProfileViewModel : ViewModel() {
     }
 
     fun onLogOutClicked() {
-        sharedPreferencesHelper.clearUserData()
+        sharedPreferencesHelper.logout()
         _shouldLogout.value = true
     }
 }

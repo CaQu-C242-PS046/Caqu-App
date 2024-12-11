@@ -2,6 +2,9 @@ package com.budi.caquapplicaton.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.budi.caquapplicaton.retrofit.QuizStatusItem
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class SharedPreferencesHelper(context: Context) {
 
@@ -15,6 +18,7 @@ class SharedPreferencesHelper(context: Context) {
         private const val USERNAME = "username"
         private const val LAST_LOGIN_TIME = "lastLoginTime"
         private const val LAST_RECOMMENDATION = "lastRecommendation"
+        private const val QUIZ_STATUS = "quizStatus"
     }
 
     // Simpan token akses dan token refresh
@@ -42,6 +46,25 @@ class SharedPreferencesHelper(context: Context) {
         }
     }
 
+    fun saveQuizStatus(quizStatus: List<QuizStatusItem>) {
+        val gson = Gson()
+        val json = gson.toJson(quizStatus)
+        sharedPreferences.edit().apply {
+            putString(QUIZ_STATUS, json)
+            apply()
+        }
+    }
+
+    fun getQuizStatus(): List<QuizStatusItem>? {
+        val gson = Gson()
+        val json = sharedPreferences.getString(QUIZ_STATUS, null)
+        return if (json != null) {
+            val type = object : TypeToken<List<QuizStatusItem>>() {}.type
+            gson.fromJson(json, type)
+        } else {
+            null
+        }
+    }
 
     // Simpan waktu login terakhir (opsional)
     fun saveLastLoginTime(timestamp: Long) {

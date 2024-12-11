@@ -10,7 +10,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.fragment.app.viewModels
 import com.budi.caquapplication.databinding.FragmentCareerBinding
 import com.budi.caquapplicaton.retrofit.AuthService
-import com.budi.caquapplicaton.retrofit.BaseService
 import com.budi.caquapplicaton.retrofit.RetrofitClient
 import com.budi.caquapplicaton.room.AuthRepository
 import com.budi.caquapplicaton.utils.SharedPreferencesHelper
@@ -22,9 +21,13 @@ class CareerFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
+    private lateinit var authRepository: AuthRepository
     private val apiService = RetrofitClient.createService(AuthService::class.java)
-    private val repository = CareerRepository(apiService)
-    private val viewModel: CareerViewModel by viewModels { CareerViewModelFactory(repository) }
+    private lateinit var repository: CareerRepository
+
+    private val viewModel: CareerViewModel by viewModels {
+        CareerViewModelFactory(repository, authRepository)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,12 +40,13 @@ class CareerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Inisialisasi SharedPreferencesHelper dan AuthRepository
+        // Inisialisasi SharedPreferencesHelper, AuthRepository, dan CareerRepository
         sharedPreferencesHelper = SharedPreferencesHelper(requireContext())
-        val authRepository = AuthRepository(apiService, sharedPreferencesHelper)
+        authRepository = AuthRepository(apiService, sharedPreferencesHelper)
+        repository = CareerRepository(apiService)
 
         // Ambil token dari SharedPreferences
-        var token = sharedPreferencesHelper.getAccessToken()
+        val token = sharedPreferencesHelper.getAccessToken()
 
         if (token.isNullOrEmpty()) {
             Toast.makeText(requireContext(), "Token tidak ditemukan, silakan login ulang", Toast.LENGTH_SHORT).show()
@@ -58,10 +62,10 @@ class CareerFragment : Fragment() {
         }
 
         // Fetch data karir dengan token
-        fetchCareerDetailsWithRetry(careerName, token, authRepository)
+        fetchCareerDetailsWithRetry(careerName, token)
     }
 
-    private fun fetchCareerDetailsWithRetry(careerName: String, token: String, authRepository: AuthRepository) {
+    private fun fetchCareerDetailsWithRetry(careerName: String, token: String) {
         viewModel.fetchCareerDetails(careerName, "Bearer $token")
 
         viewModel.careerDetails.observe(viewLifecycleOwner) { careerResponse ->
@@ -74,19 +78,19 @@ class CareerFragment : Fragment() {
 
         viewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
             if (errorMessage.contains("401")) { // Jika token expired
-                retryWithNewToken(careerName, authRepository)
+                retryWithNewToken(careerName)
             } else {
                 Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    private fun retryWithNewToken(careerName: String, authRepository: AuthRepository) {
+    private fun retryWithNewToken(careerName: String) {
         lifecycleScope.launch {
             val newToken = authRepository.refreshAccessToken()
             if (newToken != null) {
                 // Simpan token baru dan ulangi request
-                fetchCareerDetailsWithRetry(careerName, newToken, authRepository)
+                fetchCareerDetailsWithRetry(careerName, newToken)
             } else {
                 Toast.makeText(requireContext(), "Gagal memperbarui token, silakan login ulang", Toast.LENGTH_SHORT).show()
             }
