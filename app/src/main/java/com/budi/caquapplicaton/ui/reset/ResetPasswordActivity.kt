@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.budi.caquapplication.R
+import com.budi.caquapplication.databinding.ActivityResetPasswordBinding
 import com.budi.caquapplicaton.retrofit.ApiClient
 import com.budi.caquapplicaton.retrofit.AuthService
 import com.budi.caquapplicaton.retrofit.ForgotPasswordRequest
@@ -17,9 +18,12 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ResetPasswordActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityResetPasswordBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reset_password)
+        binding = ActivityResetPasswordBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // Initialize UI elements
         val backButton: ImageView = findViewById(R.id.backButton)

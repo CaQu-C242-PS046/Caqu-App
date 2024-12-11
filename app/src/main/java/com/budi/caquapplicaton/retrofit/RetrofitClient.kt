@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
     private const val BASE_URL = "https://caqu-app-442406.et.r.appspot.com/"
-
+    private var retrofit: Retrofit? = null
     fun <T> createService(serviceClass: Class<T>): T {
         val loggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
@@ -27,6 +27,15 @@ object RetrofitClient {
             .build()
 
         return retrofit.create(serviceClass)
+    }
+    fun getInstance(): Retrofit {
+        if (retrofit == null) {
+            retrofit = Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        }
+        return retrofit!!
     }
 }
 
