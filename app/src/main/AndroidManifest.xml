@@ -16,7 +16,10 @@
         android:theme="@style/Theme.Capstone"
         tools:targetApi="31">
         <activity
-            android:name="com.budi.caquapplicaton.ui.reset.ResetPassword"
+            android:name="com.budi.caquapplicaton.ui.reset.ResetPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.budi.caquapplicaton.ui.reset.NewPasswordActivity"
             android:exported="false" />
         <activity
             android:name="com.budi.caquapplicaton.ui.change.ChangePassword"
