@@ -53,6 +53,7 @@
             android:backgroundTint="#D3D3D3"
             android:hint="@string/username"
             android:inputType="text"
+            android:fontFamily="@font/montserratmedium"
             android:paddingStart="16dp"
             android:paddingEnd="16dp" />
 
@@ -69,6 +70,7 @@
                 android:background="@drawable/rounded_edittext_background"
                 android:backgroundTint="#D3D3D3"
                 android:hint="@string/password"
+                android:fontFamily="@font/montserratmedium"
                 android:inputType="textPassword"
                 android:paddingStart="16dp"
                 android:paddingEnd="48dp" />

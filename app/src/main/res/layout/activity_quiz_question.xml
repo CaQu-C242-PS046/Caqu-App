@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             tools:text="Question 7/20"
             android:textSize="18sp"
-            android:textStyle="bold"
+            android:fontFamily="@font/montserratsemibold"
             android:layout_centerVertical="true"
             android:id="@+id/question_indicator_textview" />
 
@@ -106,7 +106,7 @@
                 android:layout_height="120dp"
                 tools:text="Apakah kamu menikmati bekerja dalam tim?"
                 android:textSize="20sp"
-                android:textStyle="bold"
+                android:fontFamily="@font/montserratsemibold"
                 android:padding="8dp"
                 android:background="@drawable/bg_circle_blue"
                 android:backgroundTint="#8CC2F6"
@@ -171,6 +171,7 @@
                 android:paddingVertical="12dp"
                 android:backgroundTint="#80B3F4"
                 android:text="Lanjut"
+                android:fontFamily="@font/montserratmedium"
                 android:textSize="20sp" />
 
             <FrameLayout

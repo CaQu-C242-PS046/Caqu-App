@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp"
+    android:paddingBottom="140dp"
+    android:clipToPadding="false"
+    android:clipChildren="false"
     android:background="@drawable/profile_background_white"
     tools:context="com.budi.caquapplicaton.ui.profile.ProfileFragment">
 

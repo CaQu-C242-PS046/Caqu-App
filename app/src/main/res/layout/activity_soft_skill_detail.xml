@@ -2,16 +2,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F9F9F9">
+    android:background="@drawable/backgroundtigadim">
 
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@drawable/background"
         android:theme="?attr/actionBarTheme"
-        android:elevation="4dp">
+        android:elevation="8dp">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -36,9 +35,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:text="@string/soft_skills"
+                android:fontFamily="@font/montserratbold"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textSize="20sp"/>
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
@@ -62,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:text="Soft Skill Name"
                 android:textSize="24sp"
-                android:textStyle="bold"
+                android:fontFamily="@font/montserratsemibold"
                 android:textColor="@android:color/black"
                 android:paddingBottom="8dp"
                 android:textAlignment="center"/>
@@ -74,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:text="Video Title"
                 android:textSize="20sp"
-                android:textStyle="bold"
+                android:fontFamily="@font/montserratsemibold"
                 android:gravity="center"
                 android:padding="12dp"
                 android:layout_marginTop="16dp"
@@ -100,6 +99,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Watch Video"
+                android:fontFamily="@font/montserratmedium"
                 android:textColor="#0000FF"
                 android:textStyle="bold"
                 android:layout_marginTop="12dp"
@@ -115,6 +115,7 @@
                 android:textSize="16sp"
                 android:layout_marginTop="16dp"
                 android:padding="16dp"
+                android:fontFamily="@font/montserratmedium"
                 android:background="@drawable/rounded_softskill_list"
                 android:textColor="@android:color/black"
                 android:lineSpacingExtra="4dp" />

@@ -40,7 +40,7 @@
                     android:text="Rekomendasi Karir"
                     android:textColor="#1058BA"
                     android:textSize="24sp"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/montserratbold" />
 
                 <ImageView
                     android:id="@+id/backButton"
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:text="Data Analyst"
                 android:textSize="24sp"
-                android:textStyle="bold"
+                android:fontFamily="@font/montserratsemibold"
                 android:gravity="center"
                 android:layout_marginTop="16dp"/>
 
@@ -81,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:text="Deskripsi"
                     android:background="@drawable/bottom_background"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/montserratsemibold"
                     android:backgroundTint="#8CC2F6"
                     android:padding="8dp"
                     android:textColor="@android:color/white" />
@@ -89,6 +89,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserratmedium"
                     android:text="data analyst adalah orang yang meneliti dan menganalisis data informasi dan mengubahnya menjadi sebuah laporan yang mudah dipahami oleh perusahaan."
                     android:layout_marginTop="8dp"/>
             </LinearLayout>
@@ -108,11 +109,12 @@
                     android:padding="8dp"
                     android:text="Peran Pekerjaan"
                     android:textColor="@android:color/white"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/montserratsemibold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserratmedium"
                     android:text="data analyst adalah orang yang meneliti dan menganalisis data informasi dan mengubahnya menjadi sebuah laporan yang mudah dipahami oleh perusahaan."
                     android:layout_marginTop="8dp"/>
             </LinearLayout>
@@ -129,7 +131,7 @@
                     android:layout_height="wrap_content"
                     android:text="Keterampilan Diperlukan"
                     android:background="@drawable/bottom_background"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/montserratsemibold"
                     android:backgroundTint="#8CC2F6"
                     android:padding="8dp"
                     android:textColor="@android:color/white" />
@@ -137,6 +139,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserratmedium"
                     android:text="data analyst adalah orang yang meneliti dan menganalisis data informasi dan mengubahnya menjadi sebuah laporan yang mudah dipahami oleh perusahaan."
                     android:layout_marginTop="8dp"/>
             </LinearLayout>
@@ -153,7 +156,7 @@
                     android:layout_height="wrap_content"
                     android:text="Gaji Rata-rata"
                     android:background="@drawable/bottom_background"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/montserratsemibold"
                     android:backgroundTint="#8CC2F6"
                     android:padding="8dp"
                     android:textColor="@android:color/white" />
@@ -161,6 +164,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserratmedium"
                     android:text="data analyst adalah orang yang meneliti dan menganalisis data informasi dan mengubahnya menjadi sebuah laporan yang mudah dipahami oleh perusahaan."
                     android:layout_marginTop="8dp"/>
             </LinearLayout>
@@ -177,7 +181,7 @@
                     android:layout_height="wrap_content"
                     android:text="Feedback"
                     android:background="@drawable/bottom_background"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/montserratsemibold"
                     android:backgroundTint="#8CC2F6"
                     android:padding="8dp"
                     android:textColor="@android:color/white" />
@@ -185,6 +189,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserratmedium"
                     android:text="data analyst adalah orang yang meneliti dan menganalisis data informasi dan mengubahnya menjadi sebuah laporan yang mudah dipahami oleh perusahaan."
                     android:layout_marginTop="8dp"/>
             </LinearLayout>
@@ -201,7 +206,7 @@
                     android:layout_height="wrap_content"
                     android:text="Hard Skill"
                     android:background="@drawable/bottom_background"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/montserratsemibold"
                     android:backgroundTint="#8CC2F6"
                     android:padding="8dp"
                     android:textColor="@android:color/white" />
@@ -221,6 +226,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserratmedium"
                         android:text="Materi Hard Skills"
                         android:textColor="@android:color/black"
                         android:textStyle="bold" />
@@ -237,12 +243,13 @@
                         android:layout_width="170dp"
                         android:layout_height="95dp"
                         android:src="@drawable/logo"
-                        android:tint="#FF0000" />
+                        app:tint="#FF0000" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserratmedium"
                         android:text="Belajar Assessing Data (Judul ke 2 Video)"
                         android:layout_marginStart="8dp"/>
                 </LinearLayout>
@@ -258,12 +265,13 @@
                         android:layout_width="170dp"
                         android:layout_height="95dp"
                         android:src="@drawable/logo"
-                        android:tint="#FF0000" />
+                        app:tint="#FF0000" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserratmedium"
                         android:text="Belajar Assessing Data (Judul ke 2 Video)"
                         android:layout_marginStart="8dp"/>
                 </LinearLayout>
@@ -279,11 +287,12 @@
                         android:layout_width="170dp"
                         android:layout_height="95dp"
                         android:src="@drawable/logo"
-                        android:tint="#FF0000" />
+                        app:tint="#FF0000" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_weight="1"
+                        android:fontFamily="@font/montserratmedium"
                         android:layout_height="wrap_content"
                         android:text="Belajar Assessing Data (Judul ke 2 Video)"
                         android:layout_marginStart="8dp"/>

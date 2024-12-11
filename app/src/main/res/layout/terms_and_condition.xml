@@ -5,38 +5,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#FFFFFF"
+    android:background="@drawable/backgroundtiga"
     android:padding="16dp"
     tools:context="com.budi.caquapplicaton.ui.profile.TermsCondition">
 
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:layout_height="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        android:elevation="8dp">
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical">
 
-        <ImageView
-            android:id="@+id/backButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/baseline_arrow_back_ios_24_1"
-            android:padding="8dp"
-            android:layout_gravity="center_vertical"
-            app:tint="@color/black" />
+            <ImageView
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_arrow_back_ios_24_2"
+                android:contentDescription="@string/back"
+                app:tint="@color/black" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Terms &amp; Condition"
-            android:fontFamily="@font/montserratmedium"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#000000" />
-
-    </LinearLayout>
+            <TextView
+                android:id="@+id/toolbarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/terms_and_conditions"
+                android:fontFamily="@font/montserratbold"
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
 
 
     <ScrollView
@@ -49,14 +53,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/rounded_background"
+            android:background="@drawable/rounded_background_dim"
             android:padding="16dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/terms_and_conditions_fill"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:fontFamily="@font/montserratmedium"
                 android:lineSpacingExtra="4dp"
                 android:textColor="#FFFFFF" />
