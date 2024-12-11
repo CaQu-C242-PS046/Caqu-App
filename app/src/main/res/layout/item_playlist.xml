@@ -16,7 +16,7 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/ivVideoThumbnail"
+            android:id="@+id/playlistThumbnail"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:cropToPadding="true"
@@ -24,7 +24,7 @@
             android:contentDescription="@string/event_picture" />
 
         <TextView
-            android:id="@+id/tvTitle"
+            android:id="@+id/playlistTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/event_title"
@@ -35,7 +35,7 @@
             android:textColor="@color/black" />
 
         <TextView
-            android:id="@+id/tvLink"
+            android:id="@+id/playlistLink"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/event_title"

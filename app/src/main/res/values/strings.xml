@@ -111,5 +111,6 @@
     <string name="career_recommendation_title">Rekomendasi Karir</string>
     <string name="no_recommendation">Tidak ada rekomendasi tersedia</string>
     <string name="lanjut">Lanjut</string>
+    <string name="career_image" />
 
 </resources>

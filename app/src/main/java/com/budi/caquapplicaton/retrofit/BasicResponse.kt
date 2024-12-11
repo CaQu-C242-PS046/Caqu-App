@@ -103,23 +103,37 @@ data class QuestionStatus(
     val answered: Boolean
 )
 
-data class  VideoPlaylist(
+@Parcelize
+data class VideoPlaylist(
     val videoLink: String,
     val title: String,
     val thumbnails: Thumbnails
-)
+) : Parcelable
 
-data class  VideoFeedback(
+@Parcelize
+data class VideoFeedback(
     val videoLink: String,
     val title: String,
     val thumbnails: Thumbnails
-)
+) : Parcelable
+
 // Response untuk detail karir
 data class CareerResponse(
     val namaKarir: String,
     val skill: List<String>,
     val pendidikan: List<String>,
     val insight: List<String>,
-    val video: List<VideoPlaylist>,
+    val image: String
 )
+
+data class PlaylistItem(
+    val data: List<String>
+)
+
+data class PlaylistDetail(
+    val thumbnailUrl: String,
+    val title: String,
+    val link: String
+)
+
 

@@ -209,7 +209,7 @@
                     android:id="@+id/rekomendasi_recycle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:listitem="@layout/item_horizontal"
+                    tools:listitem="@layout/item_feedback"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

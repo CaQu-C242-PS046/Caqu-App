@@ -1,153 +1,217 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.widget.ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <!-- Header -->
+        <!-- Career Name -->
         <TextView
-            android:id="@+id/header_title"
-            android:layout_width="wrap_content"
+            android:id="@+id/careerName"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Rekomendasi Karir"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#000"
-            android:layout_gravity="center"
-            android:paddingBottom="8dp" />
-
-        <TextView
-            android:id="@+id/career_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
+            android:text="Software Developer"
             android:textSize="24sp"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-medium"
             android:textStyle="bold"
-            android:textColor="#007BFF"
-            android:layout_gravity="center"
-            android:paddingBottom="16dp" />
-
-        <!-- Kotak Gambar -->
-        <LinearLayout
-            android:id="@+id/image_container"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginBottom="16dp"
-            android:background="#E0E0E0"
             android:padding="8dp"
-            android:elevation="4dp"
-            android:orientation="vertical"
-            android:layout_gravity="center"
-            android:clipToPadding="false">
+            android:gravity="center_horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"/>
 
-            <ImageView
-                android:id="@+id/career_image"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:contentDescription="Gambar Ekonom"
-                android:background="@drawable/rounded_corner_background" />
-        </LinearLayout>
+        <!-- Career Image with rounded corners -->
+        <ImageView
+            android:id="@+id/careerImage"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/career_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/careerName"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/background" />
 
-        <!-- Deskripsi -->
+        <!-- Career Description Section Title -->
         <TextView
-            android:id="@+id/description_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textStyle="bold"
-            android:textColor="#007BFF"
-            android:paddingBottom="4dp" />
-
-        <TextView
-            android:id="@+id/description_text"
+            android:id="@+id/careerDescriptionTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ekonom bertugas untuk mengkaji, menganalisis, dan menafsirkan data ekonomi guna membantu organisasi dalam memahami tren ekonomi, membuat perencanaan, dan mengambil keputusan strategis terkait kebijakan ekonomi."
-            android:textSize="14sp"
-            android:lineSpacingExtra="4dp"
-            android:paddingBottom="16dp" />
-
-        <!-- Keterampilan Diperlukan -->
-        <TextView
-            android:id="@+id/skills_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Keterampilan Diperlukan"
+            android:text="Career Description"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:padding="16dp"
             android:textStyle="bold"
-            android:textColor="#007BFF"
-            android:paddingBottom="4dp" />
+            android:fontFamily="@font/montserratsemibold"
+            app:layout_constraintTop_toBottomOf="@id/careerImage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-        <TextView
-            android:id="@+id/skills_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="- Keterampilan analisis data\n- Pemahaman mendalam tentang teori ekonomi\n- Kemampuan kuantitatif\n- Penggunaan perangkat lunak statistik seperti STATA atau SPSS."
-            android:textSize="14sp"
-            android:lineSpacingExtra="4dp"
-            android:paddingBottom="16dp" />
-
-        <!-- Pendidikan -->
-        <TextView
-            android:id="@+id/education_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pendidikan yang Relevan"
-            android:textStyle="bold"
-            android:textColor="#007BFF"
-            android:paddingBottom="4dp" />
-
-        <TextView
-            android:id="@+id/education_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="- Ekonomi\n- Ekonomi Keuangan\n- Ekonomi Pembangunan\n- Ekonomi Politik"
-            android:textSize="14sp"
-            android:lineSpacingExtra="4dp"
-            android:paddingBottom="16dp" />
-
-        <!-- Insight -->
-        <TextView
-            android:id="@+id/insight_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Insight"
-            android:textStyle="bold"
-            android:textColor="#007BFF"
-            android:paddingBottom="4dp" />
-
-        <TextView
-            android:id="@+id/insight_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="- Peran Pekerjaan: Analis Ekonomi, Peneliti, Konsultan Kebijakan, Analis Data Ekonomi.\n- Gaji Rata-rata: Rp 4.000.000 – Rp 6.000.000/bulan untuk entry level."
-            android:textSize="14sp"
-            android:lineSpacingExtra="4dp"
-            android:paddingBottom="16dp" />
-
-        <!-- Video Edukasi -->
-        <TextView
-            android:id="@+id/video_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Video Edukasi"
-            android:textStyle="bold"
-            android:textColor="#007BFF"
-            android:paddingBottom="4dp" />
-
-        <!-- RecyclerView for Video -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/videoRecyclerView"
-            android:layout_width="match_parent"
+        <!-- Career Description Content -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/descriptionCard"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:scrollbars="vertical"
-            android:clipToPadding="false"
-            tools:listitem="@layout/item_horizontal"/>
-    </LinearLayout>
-</ScrollView>
+            app:cardCornerRadius="12dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardElevation="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/careerDescriptionTitle">
+
+            <TextView
+                android:id="@+id/descriptionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="As a Software Developer, you will be responsible for developing, testing, and maintaining software applications, ensuring high performance, scalability, and security. A strong understanding of programming languages, algorithms, and data structures is crucial in this role."
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:padding="16dp"
+                android:lineSpacingExtra="4dp"
+                android:fontFamily="@font/regular"
+                android:layout_marginTop="8dp" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- Skills Section Title -->
+        <TextView
+            android:id="@+id/skillsTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Required Skills"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:padding="16dp"
+            android:textStyle="bold"
+            android:fontFamily="@font/montserratsemibold"
+            app:layout_constraintTop_toBottomOf="@id/descriptionCard"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Skills Content -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/skillsCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:cardCornerRadius="12dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardElevation="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/skillsTitle">
+
+            <TextView
+                android:id="@+id/skillsText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="• Proficient in Java, Python, C++\n• Experience with React, Angular\n• Strong understanding of Data Structures Algorithms\n• Familiar with SQL and NoSQL databases\n• Strong problem-solving and debugging skills"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:padding="16dp"
+                android:lineSpacingExtra="4dp"
+                android:fontFamily="@font/regular"
+                android:layout_marginTop="8dp" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- Education Section Title -->
+        <TextView
+            android:id="@+id/educationTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Education  Certifications"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:padding="16dp"
+            android:textStyle="bold"
+            android:fontFamily="@font/montserratsemibold"
+            app:layout_constraintTop_toBottomOf="@id/skillsCard"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Education Content -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/educationCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:cardCornerRadius="12dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardElevation="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/educationTitle">
+
+            <TextView
+                android:id="@+id/educationText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="• Bachelor’s Degree in Computer Science from XYZ University\n• Completed various online courses in Machine Learning, Data Science, and Web Development\n• Active participant in coding bootcamps and hackathons"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:padding="16dp"
+                android:lineSpacingExtra="4dp"
+                android:fontFamily="@font/regular"
+                android:layout_marginTop="8dp" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- Feedback Section as Button-like CardView -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/feedbackCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardBackgroundColor="@color/my_prime"
+            app:cardElevation="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/educationCard">
+
+            <TextView
+                android:id="@+id/feedbackText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Feedback"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:padding="16dp"
+                android:gravity="center"
+                android:fontFamily="@font/regular" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- Playlist Section as Button-like CardView -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/playlistCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardBackgroundColor="@color/my_prime"
+            app:cardElevation="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/feedbackCard">
+
+            <TextView
+                android:id="@+id/playlistText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Go to Playlist"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:padding="16dp"
+                android:gravity="center"
+                android:fontFamily="@font/regular" />
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</android.widget.ScrollView>

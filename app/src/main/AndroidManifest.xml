@@ -18,6 +18,8 @@
         <activity
             android:name="com.budi.caquapplicaton.ui.reset.ResetPassword"
             android:exported="false" />
+        <activity android:name=".FeedbackActivity" />
+        <activity android:name=".PlaylistActivity" />
         <activity
             android:name="com.budi.caquapplicaton.ui.change.ChangePassword"
             android:exported="false" />
