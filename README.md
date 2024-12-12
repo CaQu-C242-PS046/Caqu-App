@@ -1,4 +1,13 @@
 ![alt text](https://github.com/Bangkit-Capstone-Project-CH2-PS025/.github/blob/main/GitHub%20Banner%20(2).png)
+
+## Team ID
+
+C242-PS046
+
+## Themes/Case
+
+Career Exploration adn Skill Development
+
 ## About
 Career Quest (CaQu) is an app designed to help Indonesian high school students explore careers by offering personalized recommendations based on their interests. It addresses the gap in career counseling by providing tailored career suggestions, job role insights, skills development, education requirements, and salary information.
 <p align="center">
@@ -8,7 +17,7 @@ Career Quest (CaQu) is an app designed to help Indonesian high school students e
 </p>
 
 ## Key Feature
-Recommendation system based on users' budgets, preferences, and travel destinations.
+Career Quest (CaQu) empowers Indonesian high school students with personalized career recommendations, comprehensive job insights, skill development resources, and secure, user-friendly features tailored to their unique needs.
 
 ## Additional Features
 - Carbon footprint estimation based on optimization travel distance.
