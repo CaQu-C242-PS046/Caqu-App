@@ -21,63 +21,72 @@ class NewPasswordActivity : AppCompatActivity() {
 
     private lateinit var backButton: ImageView
     private lateinit var emailEditText: EditText
+    private lateinit var resetCodeEditText: EditText
     private lateinit var newPasswordEditText: EditText
     private lateinit var confirmChangeButton: Button
     private lateinit var authService: AuthService
-    private var resetToken: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_password)
 
+        // Initialize Retrofit and the AuthService
         authService = RetrofitClient.getInstance().create(AuthService::class.java)
 
+        // Find views by ID
         backButton = findViewById(R.id.backButton)
-        emailEditText = findViewById(R.id.emailEditText)
+        emailEditText = findViewById(R.id.email)
+        resetCodeEditText = findViewById(R.id.resetCode)
         newPasswordEditText = findViewById(R.id.new_password)
         confirmChangeButton = findViewById(R.id.confirm_change_button)
 
-        resetToken = intent.getStringExtra("token")
-
+        // Back button listener
         backButton.setOnClickListener {
             onBackPressed()
         }
 
+        // Confirm change button listener
         confirmChangeButton.setOnClickListener {
             val email = emailEditText.text.toString()
+            val resetCode = resetCodeEditText.text.toString()
             val newPassword = newPasswordEditText.text.toString()
-            if (email.isEmpty() || newPassword.isEmpty()) {
-                Toast.makeText(this, "Email dan password baru harus diisi", Toast.LENGTH_SHORT).show()
+
+            // Validation: check if any fields are empty
+            if (email.isEmpty() || resetCode.isEmpty() || newPassword.isEmpty()) {
+                Toast.makeText(this, "All fields must be filled", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            if (resetToken == null) {
-                Toast.makeText(this, "Reset token tidak valid", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
+            // Prepare the request data
+            val request = ResetPasswordRequest(
+                email = email,
+                resetCode = resetCode,  // This would be the OTP or reset code entered by the user
+                newPassword = newPassword
+            )
 
-
-            val request = ResetPasswordRequest(email, newPassword)
-
+            // Send the request to reset the password
             CoroutineScope(Dispatchers.IO).launch {
                 try {
-                    val response = authService.resetPassword(resetToken!!, request)
+                    // Call the API endpoint to reset the password
+                    val response = authService.resetPassword(request)
 
+                    // Handle the response
                     withContext(Dispatchers.Main) {
                         if (response.isSuccessful) {
-                            Toast.makeText(this@NewPasswordActivity, "Password berhasil diubah", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@NewPasswordActivity, "Password successfully updated", Toast.LENGTH_SHORT).show()
+                            // Redirect to the main activity
                             val intent = Intent(this@NewPasswordActivity, MainActivity::class.java)
                             startActivity(intent)
                             finish()
                         } else {
-                            Toast.makeText(this@NewPasswordActivity, "Gagal mengubah password: ${response.message()}", Toast.LENGTH_SHORT).show()
-                            val errorMessage = response.errorBody()?.string()
-                            Toast.makeText(this@NewPasswordActivity, "Error: $errorMessage", Toast.LENGTH_SHORT).show()
+                            // Handle failure
+                            Toast.makeText(this@NewPasswordActivity, "Failed to change password: ${response.message()}", Toast.LENGTH_SHORT).show()
                         }
                     }
                 } catch (e: Exception) {
+                    // Handle any errors
                     withContext(Dispatchers.Main) {
-                        Toast.makeText(this@NewPasswordActivity, "Terjadi kesalahan: ${e.message}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@NewPasswordActivity, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
                     }
                 }
             }

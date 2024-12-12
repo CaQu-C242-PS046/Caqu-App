@@ -8,7 +8,6 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.budi.caquapplication.R
-import com.budi.caquapplication.databinding.ActivityResetPasswordBinding
 import com.budi.caquapplicaton.retrofit.ApiClient
 import com.budi.caquapplicaton.retrofit.AuthService
 import com.budi.caquapplicaton.retrofit.ForgotPasswordRequest
@@ -18,65 +17,68 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ResetPasswordActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityResetPasswordBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reset_password)
-        binding = ActivityResetPasswordBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
-        // Initialize UI elements
         val backButton: ImageView = findViewById(R.id.backButton)
         val confirmButton: Button = findViewById(R.id.confirm_change_button)
-        val emailEditText: EditText = findViewById(R.id.emailEditText)  // Corrected ID
+        val lanjutButton: Button = findViewById(R.id.lanjut) // "Lanjut" button
+        val emailEditText: EditText = findViewById(R.id.emailEditText)
 
-        // Back button to navigate to previous screen
+        // Back button listener
         backButton.setOnClickListener {
             onBackPressed()
         }
 
-        // Set click listener for the confirm button to call the API
+        // "Confirm" button listener to send password reset email
         confirmButton.setOnClickListener {
             val email = emailEditText.text.toString()
 
-            // Validate email input
             if (email.isEmpty()) {
                 Toast.makeText(this, getString(R.string.email_empty_warning), Toast.LENGTH_SHORT).show()
             } else {
-                // Call the API to send the reset password email
                 sendForgotPasswordRequest(email)
+            }
+        }
+
+        // "Lanjut" button listener to go to NewPasswordActivity without sending email
+        lanjutButton.setOnClickListener {
+            val email = emailEditText.text.toString()
+
+            if (email.isEmpty()) {
+                Toast.makeText(this, getString(R.string.email_empty_warning), Toast.LENGTH_SHORT).show()
+            } else {
+                // Navigate to NewPasswordActivity without sending email
+                val intent = Intent(this@ResetPasswordActivity, NewPasswordActivity::class.java)
+                startActivity(intent)  // No email passed to NewPasswordActivity
             }
         }
     }
 
+    // Function to send the Forgot Password request
     private fun sendForgotPasswordRequest(email: String) {
-        // Initialize Retrofit service
         val authService = ApiClient.getClient().create(AuthService::class.java)
-
-        // Create the ForgotPasswordRequest object
         val forgotPasswordRequest = ForgotPasswordRequest(email)
 
-        // Make the API call
+        // Send the request to the server
         authService.forgotPassword(forgotPasswordRequest).enqueue(object : Callback<ForgotPasswordResponse> {
             override fun onResponse(
                 call: Call<ForgotPasswordResponse>,
                 response: Response<ForgotPasswordResponse>
             ) {
                 if (response.isSuccessful) {
-                    // If email reset was successful, show success message and navigate to NewPasswordActivity
                     Toast.makeText(
                         this@ResetPasswordActivity,
                         getString(R.string.email_sent_success),
                         Toast.LENGTH_SHORT
                     ).show()
 
-                    // Navigate to NewPasswordActivity
+                    // Navigate to NewPasswordActivity after sending email
                     val intent = Intent(this@ResetPasswordActivity, NewPasswordActivity::class.java)
-                    intent.putExtra("email", email) // Pass email to the next activity
                     startActivity(intent)
-                    finish() // Optionally finish this activity so user cannot go back
                 } else {
-                    // If email is not found or an error occurs
                     Toast.makeText(
                         this@ResetPasswordActivity,
                         getString(R.string.email_not_found),
@@ -86,7 +88,6 @@ class ResetPasswordActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<ForgotPasswordResponse>, t: Throwable) {
-                // Display network failure message
                 Toast.makeText(
                     this@ResetPasswordActivity,
                     getString(R.string.network_error),

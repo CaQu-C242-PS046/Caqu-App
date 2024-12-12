@@ -120,5 +120,8 @@
     <string name="feedback_description">deskripsi</string>
     <string name="playlist_image" />
     <string name="feedback_image" />
+    <string name="no_history_found">NO History yet</string>
+    <string name="tokenRequirement">Masukkan ResetCode</string>
+    <string name="resetCode">Reset Code\n</string>
 
 </resources>

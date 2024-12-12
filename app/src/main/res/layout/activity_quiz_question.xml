@@ -8,6 +8,15 @@
     android:padding="16dp"
     tools:context="com.budi.caquapplicaton.ui.quiz.QuizActivity">
 
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:visibility="gone"
+        android:progress="0"
+        android:max="100" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="180dp"

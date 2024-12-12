@@ -187,7 +187,7 @@
                     android:layout_height="150dp"
                     android:scaleType="centerCrop"
                     android:contentDescription="@string/feedback_image"
-                    android:src="@drawable/background" />
+                    android:src="@drawable/defolt" />
 
                 <TextView
                     android:id="@+id/tvFeedbackLink"
@@ -238,7 +238,7 @@
                     android:layout_height="150dp"
                     android:scaleType="centerCrop"
                     android:contentDescription="@string/playlist_image"
-                    android:src="@drawable/background" />
+                    android:src="@drawable/quefal" />
 
                 <TextView
                     android:id="@+id/tvPlaylistLink"

@@ -25,7 +25,7 @@ class CareerViewModel(private val repository: CareerRepository, private val auth
                 } else if (response.code() == 401) { // Token kadaluarsa
                     handleTokenExpiration(name)
                 } else {
-                    _errorMessage.postValue("Failed to fetch data: Session has Expired Please Relogin ${response.message()}")
+                    _errorMessage.postValue("Failed to fetch data: Please Relogin ${response.message()}")
                 }
             } catch (e: Exception) {
                 _errorMessage.postValue("An error occurred: ${e.message}")

@@ -13,18 +13,18 @@ class AuthRepository(
         val refreshToken = sharedPreferencesHelper.getRefreshToken()
 
         if (refreshToken.isNullOrEmpty()) {
-            return null // No refresh token saved
+            return null
         }
 
         val response = authService.refreshAuthToken(RefreshTokenRequest(refreshToken))
         return if (response.isSuccessful) {
             val newAccessToken = response.body()?.accessToken
             if (!newAccessToken.isNullOrEmpty()) {
-                sharedPreferencesHelper.saveTokens(newAccessToken, refreshToken) // Save new token
+                sharedPreferencesHelper.saveTokens(newAccessToken, refreshToken)
             }
             newAccessToken
         } else {
-            null // Token could not be refreshed
+            null
         }
     }
 }

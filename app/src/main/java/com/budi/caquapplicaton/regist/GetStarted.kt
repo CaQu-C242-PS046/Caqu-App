@@ -33,9 +33,6 @@ class GetStarted : AppCompatActivity() {
         loginButton.setOnClickListener {
             navigateToLogin()
         }
-
-
-        startImageAnimation()
     }
 
     private fun navigateToRegister() {
@@ -50,13 +47,5 @@ class GetStarted : AppCompatActivity() {
     private fun navigateToLogin() {
         val intent = Intent(this, LoginPage::class.java)
         startActivity(intent)
-    }
-
-    private fun startImageAnimation() {
-        val animator = ObjectAnimator.ofFloat(animatedImage, "translationY", 0f, 50f)
-        animator.duration = 2000
-        animator.repeatMode = ValueAnimator.REVERSE
-        animator.repeatCount = ValueAnimator.INFINITE
-        animator.start()
     }
 }

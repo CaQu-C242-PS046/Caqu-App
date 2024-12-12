@@ -92,6 +92,8 @@ class QuizViewModel(private val sharedPreferencesHelper: SharedPreferencesHelper
         }
     }
 
+
+
     // Simpan rekomendasi ke SharedPreferences
     fun saveRecommendationToPreferences(recommendation: String) {
         sharedPreferencesHelper.saveLastRecommendation(recommendation)

@@ -99,28 +99,6 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <!-- Sign Up with Other Method -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:text="@string/or_sign_up_using_other_method"
-            android:textSize="12sp"
-            android:fontFamily="@font/montserratsemibold"
-            android:textColor="#A0A0A0"
-            android:layout_gravity="center_horizontal" />
-
-        <!-- Google Sign-In Button -->
-        <ImageView
-            android:id="@+id/googleSignInButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/google"
-            android:contentDescription="@string/google_sign_up"
-            android:layout_gravity="center_horizontal" />
-
         <!-- Already have an account? -->
         <TextView
             android:id="@+id/loginTextView"

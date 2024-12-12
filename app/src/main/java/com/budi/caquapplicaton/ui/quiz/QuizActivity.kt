@@ -45,6 +45,11 @@ class QuizActivity : AppCompatActivity() {
         viewModel.questionResponse.observe(this) { question ->
             binding.questionTextview.text = question.question
             binding.questionIndicatorTextview.text = "Question $currentQuestionId / ${viewModel.totalQuestions}"
+
+            // Update Progress Bar
+            val progress = (currentQuestionId * 100) / viewModel.totalQuestions
+            binding.progressBar.setProgress(progress, true)
+
             resetButtonColors()
         }
 
@@ -62,23 +67,23 @@ class QuizActivity : AppCompatActivity() {
                 currentQuestionId = nextQuestion.questionId
                 viewModel.loadQuestion(currentQuestionId, token)
             } else {
-                viewModel.submitQuiz(token) // Semua pertanyaan dijawab
+                viewModel.submitQuiz(token) // All questions answered
             }
         }
 
         viewModel.recommendationResponse.observe(this) { recommendation ->
             if (recommendation != null) {
-                // Simpan rekomendasi ke SharedPreferences
+                // Save recommendation to SharedPreferences
                 sharedPreferencesHelper.saveLastRecommendation(recommendation.predicted_career)
 
-                // Pindah ke Activity CareerRecommendation
+                // Transition to CareerRecommendationActivity
                 val intent = Intent(this, CareerRecommendationActivity::class.java).apply {
                     putExtra(CareerRecommendationActivity.EXTRA_RECOMMENDATION, recommendation.predicted_career)
                 }
                 startActivity(intent)
                 finish()
             } else {
-                Toast.makeText(this, "Rekomendasi tidak tersedia.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Recommendation not available.", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -114,3 +119,4 @@ class QuizActivity : AppCompatActivity() {
         }
     }
 }
+

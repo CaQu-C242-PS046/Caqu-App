@@ -10,53 +10,53 @@ import retrofit2.http.POST
 
 interface BaseService {
 
-    // Mendapatkan daftar nama soft skills
+
     @GET("softSkills/all")
     suspend fun getSoftSkillNames(
-        @Header("Authorization") token: String // Menambahkan parameter token
+        @Header("Authorization") token: String
     ): Response<ResponseSoftSkills>
 
     @POST("/auth/refresh")
     suspend fun refreshAuthToken(
-        @Body refreshTokenRequest: RefreshTokenRequest // Request body berupa refresh token
+        @Body refreshTokenRequest: RefreshTokenRequest
     ): Response<RefreshTokenResponse>
 
     @POST("/auth/login")
     suspend fun login(
-        @Body refreshToken: String // Refresh token yang sudah ada
+        @Body refreshToken: String
     ): Response<LoginResponse>
 
-    // Mendapatkan detail soft skill berdasarkan nama
+
     @GET("softSkills/{name}")
     suspend fun getSoftSkillDetail(
-        @Path("name", encoded = true) name: String, // Parameter nama soft skill
-        @Header("Authorization") token: String // Menambahkan parameter token
+        @Path("name", encoded = true) name: String,
+        @Header("Authorization") token: String
     ): Response<SoftSkillDetail>
 
-    // Mendapatkan pertanyaan berdasarkan nomor
+
     @GET("/quiz/question/{number}")
     fun getQuestion(
         @Path("number") number: Int,
-        @Header("Authorization") token: String // Menambahkan parameter token
+        @Header("Authorization") token: String
     ): Call<QuestionResponse>
 
-    // Mengirimkan jawaban untuk pertanyaan tertentu
+
     @POST("/quiz/answer")
     fun submitAnswer(
         @Body answer: AnswerRequest,
-        @Header("Authorization") token: String // Menambahkan parameter token
+        @Header("Authorization") token: String
     ): Call<GenericResponse>
 
-    // Mendapatkan status kuis
+
     @GET("/quiz/quiz-status")
     fun getQuizStatus(
-        @Header("Authorization") token: String // Menambahkan parameter token
+        @Header("Authorization") token: String
     ): Call<QuizStatusResponse>
 
-    // Menyelesaikan kuis dan mendapatkan rekomendasi
+
     @POST("/quiz/submitQuiz")
     fun submitQuiz(
-        @Header("Authorization") token: String // Menambahkan parameter token
+        @Header("Authorization") token: String
     ): Call<RecommendationResponse>
 
     @GET("career/{name}")
@@ -64,5 +64,10 @@ interface BaseService {
         @Path("name", encoded = true) name: String,
         @Header("Authorization") token: String
     ): Response<CareerResponse>
+
+    @GET("/history")
+    suspend fun getCareerName(
+        @Header("Authorization") token: String,
+    ): Response<CareerNameResponse>
 
 }

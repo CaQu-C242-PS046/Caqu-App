@@ -16,7 +16,7 @@ interface AuthService {
 
     @POST("/auth/login")
     suspend fun login(
-        @Body refreshToken: String // Refresh token yang sudah ada
+        @Body refreshToken: String
     ): Response<LoginResponse>
 
     @POST("/auth/register")
@@ -30,15 +30,14 @@ interface AuthService {
 
     @POST("/auth/refresh")
     suspend fun refreshAuthToken(
-        @Body refreshTokenRequest: RefreshTokenRequest // Request body berupa refresh token
+        @Body refreshTokenRequest: RefreshTokenRequest
     ): Response<RefreshTokenResponse>
 
     @POST("/forgot-password")
     fun forgotPassword(@Body request: ForgotPasswordRequest): Call<ForgotPasswordResponse>
 
-    @PUT("/auth/reset-password/{token}")
+    @PUT("/reset-password")
     suspend fun resetPassword(
-        @Path("token") token: String,
         @Body request: ResetPasswordRequest
     ): Response<ResetPasswordResponse>
 
@@ -47,5 +46,10 @@ interface AuthService {
         @Path("name", encoded = true) name: String,
         @Header("Authorization") token: String
     ): Response<CareerResponse>
+
+    @GET("/history")
+    suspend fun getCareerName(
+        @Header("Authorization") token: String,
+    ): Response<CareerNameResponse>
 }
 

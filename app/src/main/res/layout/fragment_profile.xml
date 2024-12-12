@@ -35,9 +35,7 @@
             android:layout_height="32dp"
             android:layout_gravity="bottom|end"
             android:layout_margin="4dp"
-            android:background="@drawable/bg_circle_blue"
             android:padding="6dp"
-            android:src="@drawable/baseline_edit_24"
             app:tint="#9E9E9E" />
     </FrameLayout>
 

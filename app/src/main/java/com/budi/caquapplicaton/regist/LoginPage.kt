@@ -36,9 +36,6 @@ class LoginPage : AppCompatActivity() {
         val retrofit = ApiClient.getClient()
         apiService = retrofit.create(AuthService::class.java)
 
-        // Tangani Deep Link
-        handleDeepLink()
-
         binding.loginButton.setOnClickListener {
             val username = binding.usernameEditText.text.toString()
             val password = binding.passwordEditText.text.toString()

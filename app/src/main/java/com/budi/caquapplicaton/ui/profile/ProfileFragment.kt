@@ -31,10 +31,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         val tvTerms = view.findViewById<TextView>(R.id.tvTerms)
         val btnLogOut = view.findViewById<Button>(R.id.btnLogOut)
 
-        // Initialize the ViewModel with context
+        // Initialize ViewModel
         profileViewModel.initialize(requireContext())
 
-        // Observe LiveData from ViewModel
+        // Observe username and user stats
         profileViewModel.username.observe(viewLifecycleOwner, Observer { username ->
             tvProfileName.text = username
         })
@@ -43,20 +43,25 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             tvStats.text = stats
         })
 
+        // Observe navigation to Change Password
         profileViewModel.shouldNavigateToChangePassword.observe(viewLifecycleOwner, Observer { shouldNavigate ->
             if (shouldNavigate) {
                 val intent = Intent(requireContext(), ChangePassword::class.java)
                 startActivity(intent)
+                profileViewModel.resetChangePasswordNavigation()
             }
         })
 
+        // Observe navigation to Terms and Condition
         profileViewModel.shouldNavigateToTermsCondition.observe(viewLifecycleOwner, Observer { shouldNavigate ->
             if (shouldNavigate) {
                 val intent = Intent(requireContext(), TermsCondition::class.java)
                 startActivity(intent)
+                profileViewModel.resetTermsNavigation()
             }
         })
 
+        // Observe logout action
         profileViewModel.shouldLogout.observe(viewLifecycleOwner, Observer { shouldLogout ->
             if (shouldLogout) {
                 val intent = Intent(requireContext(), LoginPage::class.java)

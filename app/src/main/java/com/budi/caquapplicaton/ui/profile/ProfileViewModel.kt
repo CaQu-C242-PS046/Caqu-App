@@ -1,12 +1,10 @@
 package com.budi.caquapplicaton.ui.profile
 
 import android.content.Context
-import android.content.Intent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.budi.caquapplicaton.utils.SharedPreferencesHelper
-
 
 class ProfileViewModel : ViewModel() {
 
@@ -34,8 +32,7 @@ class ProfileViewModel : ViewModel() {
         _username.value = username
 
         val hasRecommendation = sharedPreferencesHelper.getAccessToken() != null
-        _userStats.value = if (hasRecommendation) {
-            "Your stats: Expert Level"
+        _userStats.value = if (hasRecommendation) { "Career"
         } else {
             "Awaiting recommendations..."
         }
@@ -52,5 +49,13 @@ class ProfileViewModel : ViewModel() {
     fun onLogOutClicked() {
         sharedPreferencesHelper.logout()
         _shouldLogout.value = true
+    }
+
+    fun resetChangePasswordNavigation() {
+        _shouldNavigateToChangePassword.value = false
+    }
+
+    fun resetTermsNavigation() {
+        _shouldNavigateToTermsCondition.value = false
     }
 }

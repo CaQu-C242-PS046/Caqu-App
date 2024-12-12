@@ -86,15 +86,10 @@ class CareerFragment : Fragment() {
             binding.descriptionText.text = careerResponse.insight.joinToString("\n")
             binding.skillsText.text = careerResponse.skill.joinToString("\n")
             binding.educationText.text = careerResponse.pendidikan.joinToString("\n")
-            binding.playlistTitle.text = careerResponse.video.joinToString(", ") { it.snippet?.title ?: "No Title" }
+            binding.playlistTitle.text = careerResponse.video.joinToString(", ") { it.snippet.title }
             binding.feedbackTitle.text = careerResponse.feedback.title
 
-            Glide.with(this)
-                .load(careerResponse.feedback.thumbnails.high)
-                .into(binding.feedbackImage)
-            Glide.with(this)
-                .load(careerResponse.video.firstOrNull()?.snippet?.thumbnails)
-                .into(binding.playlistImage)
+
             Glide.with(this)
                 .load(careerResponse.image)
                 .into(binding.careerImage)
@@ -122,9 +117,7 @@ class CareerFragment : Fragment() {
                     Toast.makeText(requireContext(), "URL Feedback tidak tersedia", Toast.LENGTH_SHORT).show()
                 }
             }
-
         }
-
 
 
         viewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->

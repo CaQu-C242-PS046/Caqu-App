@@ -2,32 +2,31 @@ package com.budi.caquapplicaton.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.budi.caquapplication.R
 import com.budi.caquapplication.databinding.FragmentHomeBinding
 import com.budi.caquapplicaton.retrofit.QuizClient
-import com.budi.caquapplicaton.ui.quiz.QuizActivity
 import com.budi.caquapplicaton.ui.quiz.CareerRecommendationActivity
+import com.budi.caquapplicaton.ui.quiz.QuizActivity
 import com.budi.caquapplicaton.utils.SharedPreferencesHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class HomeFragment : Fragment() {
-
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
-    private lateinit var homeViewModel: HomeViewModel  // Deklarasi HomeViewModel
-
+    private lateinit var homeViewModel: HomeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,26 +35,31 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        // Initialize ViewModel dan SharedPreferencesHelper
-        homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         sharedPreferencesHelper = SharedPreferencesHelper(requireContext())
-
         (activity as AppCompatActivity).supportActionBar?.hide()
 
-        // Menyimpan dan menampilkan nama pengguna menggunakan ViewModel
         val username = sharedPreferencesHelper.getUsername() ?: "User"
         homeViewModel.setText(getString(R.string.halo, username))
 
-        loadHistoryData()
-
-        // Observasi perubahan teks yang ada di ViewModel
-        homeViewModel.text.observe(viewLifecycleOwner, { welcomeText ->
+        homeViewModel.text.observe(viewLifecycleOwner) { welcomeText ->
             binding.welcomeText.text = welcomeText
-        })
+        }
+
+        loadCareerHistory()
 
         binding.recommendButton.setOnClickListener {
             checkQuizStatusAndNavigate()
         }
+
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    requireActivity().moveTaskToBack(true)
+                }
+            }
+        )
 
         return binding.root
     }
@@ -70,12 +74,10 @@ class HomeFragment : Fragment() {
                     val quizStatus = response.body()?.quizStatus
 
                     withContext(Dispatchers.Main) {
-                        if (quizStatus == null || quizStatus.isEmpty()) {
-                            // Jika belum pernah mengerjakan kuis
+                        if (quizStatus.isNullOrEmpty()) {
                             sharedPreferencesHelper.saveQuizStatus(emptyList())
                             startActivity(Intent(requireContext(), QuizActivity::class.java))
                         } else {
-                            // Simpan status kuis
                             sharedPreferencesHelper.saveQuizStatus(quizStatus)
                             val allAnswered = quizStatus.all { it.answered }
 
@@ -87,37 +89,12 @@ class HomeFragment : Fragment() {
                         }
                     }
                 } else {
-                    withContext(Dispatchers.Main) {
-                        Toast.makeText(
-                            requireContext(),
-                            "Gagal memuat status kuis.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                    showToast("Failed to load quiz status.")
                 }
             } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(
-                        requireContext(),
-                        "Terjadi kesalahan: ${e.message}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+                showToast("Error: ${e.message}")
             }
         }
-    }
-
-    private fun loadHistoryData() {
-        val lastRecommendation = sharedPreferencesHelper.getLastRecommendation()
-        val historyData = mutableListOf<String>()
-
-        if (!lastRecommendation.isNullOrEmpty()) {
-            historyData.add(lastRecommendation) // Tambahkan data dari SharedPreferences
-        }
-
-        val historyAdapter = HistoryAdapter(historyData)
-        binding.historyRecycle.adapter = historyAdapter
-        binding.historyRecycle.layoutManager = LinearLayoutManager(requireContext())
     }
 
     private fun navigateToRecommendation() {
@@ -127,6 +104,48 @@ class HomeFragment : Fragment() {
         }
         startActivity(intent)
     }
+
+    private fun showToast(message: String) {
+        lifecycleScope.launch(Dispatchers.Main) {
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun loadCareerHistory() {
+        val token = "Bearer ${sharedPreferencesHelper.getAccessToken()}"
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                // Memanggil API untuk mendapatkan daftar karier
+                val response = QuizClient.getQuizApi().getCareerName(token)
+                if (response.isSuccessful) {
+                    // Mengambil body respons dan memetakan ke daftar karier
+                    val careerHistory = response.body()?.history.orEmpty()
+                    val firstCareer = careerHistory.firstOrNull()?.recommendedCareer
+
+                    withContext(Dispatchers.Main) {
+                        if (firstCareer != null) {
+                            // Menampilkan elemen pertama
+                            binding.historyText.text = "- $firstCareer"
+                        } else {
+                            // Menampilkan teks jika data kosong
+                            binding.historyText.text = getString(R.string.no_history_found)
+                        }
+                    }
+                } else {
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(requireContext(), "Failed to fetch career history. Error code: ${response.code()}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    // Menampilkan pesan error jika ada pengecualian
+                    Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

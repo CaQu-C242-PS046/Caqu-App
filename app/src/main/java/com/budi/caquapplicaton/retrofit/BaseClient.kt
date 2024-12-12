@@ -10,7 +10,7 @@ object BaseClient {
 
     private const val BASE_URL = "https://caqu-app-442406.et.r.appspot.com/"
 
-    // Ubah ke public atau internal
+
     fun getClient(): Retrofit {
         val gson = GsonBuilder()
             .setLenient()
