@@ -56,7 +56,6 @@ class NewPasswordActivity : AppCompatActivity() {
                 Toast.makeText(this, "All fields must be filled", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-
             // Prepare the request data
             val request = ResetPasswordRequest(
                 email = email,
