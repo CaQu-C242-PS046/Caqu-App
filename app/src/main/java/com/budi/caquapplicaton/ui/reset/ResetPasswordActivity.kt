@@ -50,33 +50,32 @@ class ResetPasswordActivity : AppCompatActivity() {
     }
 
     private fun sendForgotPasswordRequest(email: String) {
-        // Initialize Retrofit service
         val authService = ApiClient.getClient().create(AuthService::class.java)
-
-        // Create the ForgotPasswordRequest object
         val forgotPasswordRequest = ForgotPasswordRequest(email)
 
-        // Make the API call
         authService.forgotPassword(forgotPasswordRequest).enqueue(object : Callback<ForgotPasswordResponse> {
             override fun onResponse(
                 call: Call<ForgotPasswordResponse>,
                 response: Response<ForgotPasswordResponse>
             ) {
                 if (response.isSuccessful) {
-                    // If email reset was successful, show success message and navigate to NewPasswordActivity
-                    Toast.makeText(
-                        this@ResetPasswordActivity,
-                        getString(R.string.email_sent_success),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    response.body()?.let { forgotPasswordResponse ->
+                        Toast.makeText(
+                            this@ResetPasswordActivity,
+                            getString(R.string.email_sent_success),
+                            Toast.LENGTH_SHORT
+                        ).show()
 
-                    // Navigate to NewPasswordActivity
-                    val intent = Intent(this@ResetPasswordActivity, NewPasswordActivity::class.java)
-                    intent.putExtra("email", email) // Pass email to the next activity
-                    startActivity(intent)
-                    finish() // Optionally finish this activity so user cannot go back
+                        // Asumsikan response dari server mengandung reset token
+                        val resetToken = forgotPasswordResponse.message // atau field yang sesuai dari response
+
+                        val intent = Intent(this@ResetPasswordActivity, NewPasswordActivity::class.java)
+                        intent.putExtra("email", email)
+                        intent.putExtra("reset_token", resetToken) // Mengirim token ke activity berikutnya
+                        startActivity(intent)
+                        finish()
+                    }
                 } else {
-                    // If email is not found or an error occurs
                     Toast.makeText(
                         this@ResetPasswordActivity,
                         getString(R.string.email_not_found),
@@ -86,7 +85,6 @@ class ResetPasswordActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<ForgotPasswordResponse>, t: Throwable) {
-                // Display network failure message
                 Toast.makeText(
                     this@ResetPasswordActivity,
                     getString(R.string.network_error),
