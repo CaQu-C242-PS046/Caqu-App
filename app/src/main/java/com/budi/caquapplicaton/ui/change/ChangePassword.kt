@@ -32,7 +32,7 @@ class ChangePassword : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_change_password)
 
-        // Inisialisasi SharedPreferencesHelper dan ViewModel
+
         sharedPreferencesHelper = SharedPreferencesHelper(this)
         changePasswordViewModel = ViewModelProvider(this, ViewModelFactory(applicationContext)).get(ChangePasswordViewModel::class.java)
 
