@@ -118,10 +118,7 @@ class ChangePassword : AppCompatActivity() {
     }
 
     private fun isValidPassword(password: String): Boolean {
-        // Basic password validation
-        return password.length >= 8 &&
-                password.any { it.isUpperCase() } &&
-                password.any { it.isLowerCase() } &&
-                password.any { it.isDigit() }
+        // Validasi hanya mengecek panjang password minimal 8 karakter
+        return password.length >= 8
     }
 }

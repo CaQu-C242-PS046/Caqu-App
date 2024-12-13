@@ -84,11 +84,15 @@ class RegistPage : AppCompatActivity() {
 
                 if (response.isSuccessful) {
                     val registerResponse = response.body()
-                    if (registerResponse?.success == true) {
-                        Toast.makeText(this@RegistPage, registerResponse.message, Toast.LENGTH_SHORT).show()
-                        navigateToLoginPage()
-                    } else {
-                        Toast.makeText(this@RegistPage, registerResponse?.message ?: "Registration failed", Toast.LENGTH_SHORT).show()
+                    registerResponse?.let {
+                        if (it.message.equals("Registrasi berhasil!", ignoreCase = true)) {
+                            Toast.makeText(this@RegistPage, it.message, Toast.LENGTH_SHORT).show()
+                            navigateToLoginPage()
+                        } else {
+                            Toast.makeText(this@RegistPage, it.message, Toast.LENGTH_SHORT).show()
+                        }
+                    } ?: run {
+                        Toast.makeText(this@RegistPage, "Response kosong", Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     Toast.makeText(this@RegistPage, "Server error occurred", Toast.LENGTH_SHORT).show()

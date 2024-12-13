@@ -134,7 +134,7 @@ class HomeFragment : Fragment() {
                     }
                 } else {
                     withContext(Dispatchers.Main) {
-                        Toast.makeText(requireContext(), "Failed to fetch career history. Error code: ${response.code()}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Belum ada History: ${response.code()}", Toast.LENGTH_SHORT).show()
                     }
                 }
             } catch (e: Exception) {
